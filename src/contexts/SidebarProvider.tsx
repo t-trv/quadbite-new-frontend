@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useQueryMedia } from '@/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 type SidebarContextType = {
   isOpen: boolean;
@@ -14,7 +14,7 @@ type SidebarContextType = {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
-  const isMobile = useQueryMedia({ breakpoint: '768px' });
+  const isMobile = useMediaQuery({ breakpoint: '768px' });
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const toggle = () => setIsOpen((prev) => !prev);

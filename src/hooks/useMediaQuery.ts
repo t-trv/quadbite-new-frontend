@@ -5,7 +5,7 @@
 
 import * as React from 'react';
 
-export function useQueryMedia({ breakpoint }: { breakpoint: `${string}px` }): boolean | undefined {
+export function useMediaQuery({ breakpoint }: { breakpoint: `${string}px` }): boolean | undefined {
   const [matches, setMatches] = React.useState<boolean | undefined>(undefined);
 
   React.useLayoutEffect(() => {

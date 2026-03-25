@@ -1,8 +1,9 @@
-import BaseHeader from '@/components/header/BaseHeader';
 import AppHeader from '@/components/header/AppHeader';
-import { SidebarProvider } from '@/contexts/SidebarProvider';
-import BaseSidebar from '@/components/sidebar/BaseSidebar';
+import BaseHeader from '@/components/header/BaseHeader';
 import AppSidebar from '@/components/sidebar/AppSidebar';
+import BaseSidebar from '@/components/sidebar/BaseSidebar';
+import { SidebarProvider } from '@/contexts/SidebarProvider';
+import SidebarContent from '@/components/sidebar/SidebarContent';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,7 +16,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <BaseSidebar>
             <AppSidebar />
           </BaseSidebar>
-          {children}
+          <SidebarContent>{children}</SidebarContent>
         </div>
       </SidebarProvider>
     </>

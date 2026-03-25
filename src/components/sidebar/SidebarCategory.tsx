@@ -8,7 +8,7 @@ interface SidebarCategoryProps {
 export default function SidebarCategory({ children, title }: SidebarCategoryProps) {
   return (
     <div>
-      <div className="text-primary font-semibold">{title}</div>
+      <div className="text-gray-800 font-semibold">{title}</div>
       <div className="space-y-2 mt-2">{children}</div>
     </div>
   );

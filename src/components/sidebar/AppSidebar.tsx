@@ -17,6 +17,7 @@ import SidebarItem from './SidebarItem';
 import SidebarCategory from './SidebarCategory';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
+import { APP_VERSION } from '@/config/app';
 
 export default function AppSidebar() {
   const router = useRouter();
@@ -116,21 +117,27 @@ export default function AppSidebar() {
   ];
 
   return (
-    <div className="bg-gray-100 h-full p-4 space-y-4">
-      {appRoutes.map((route) => (
-        <SidebarCategory key={route.category} title={route.category}>
-          {route.items.map((item) => (
-            <SidebarItem
-              key={item.path}
-              icon={item.icon}
-              onClick={() => router.push(item.path)}
-              isActive={pathname === item.path}
-            >
-              {item.label}
-            </SidebarItem>
-          ))}
-        </SidebarCategory>
-      ))}
+    <div className="bg-gray-100 h-full p-4 space-y-4 flex flex-col">
+      <div className="flex-1">
+        {appRoutes.map((route) => (
+          <SidebarCategory key={route.category} title={route.category}>
+            {route.items.map((item) => (
+              <SidebarItem
+                key={item.path}
+                icon={item.icon}
+                onClick={() => router.push(item.path)}
+                isActive={pathname === item.path}
+              >
+                {item.label}
+              </SidebarItem>
+            ))}
+          </SidebarCategory>
+        ))}
+      </div>
+
+      <p className="mt-auto text-xs text-gray-500 font-semibold text-center">
+        Camera AI v{APP_VERSION}
+      </p>
     </div>
   );
 }

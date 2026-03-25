@@ -8,29 +8,28 @@ import TableNoData from './TableNoData';
 
 // hooks
 
-interface TableProps {
-  cols: {
+interface TableProps<T> {
+  columns: {
     key: string;
     label: string;
     sortable?: boolean;
     parseNumber?: boolean;
     width?: string;
-    render?: (item: any) => React.ReactNode;
+    render?: (item: T) => React.ReactNode;
   }[];
-  cardView?: (item: any) => React.ReactNode;
-  data: any[];
-  motionKey?: string;
+  cardView?: (item: T[]) => React.ReactNode;
+  data: T[];
 }
 
-export default function Table({ cols, data, cardView, motionKey }: TableProps) {
+export default function Table<T>({ columns, data, cardView }: TableProps<T>) {
   const isMobile = useMediaQuery({ breakpoint: '1024px' });
 
   return (
     <>
       {/* Desktop view */}
       <table className={cn('table w-full table-fixed', { hidden: isMobile && cardView })}>
-        <TableHeader cols={cols} />
-        <TableBody cols={cols} data={data} motionKey={motionKey} />
+        <TableHeader columns={columns} />
+        <TableBody<T> columns={columns} data={data} />
       </table>
       {data?.length === 0 && <TableNoData />}
 

@@ -1,24 +1,23 @@
-import { motion } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
-interface TableBodyProps {
-  cols: any;
-  data: any;
-  motionKey?: string;
+interface TableBodyProps<T> {
+  columns: {
+    key: string;
+    label: string;
+    sortable?: boolean;
+    parseNumber?: boolean;
+    width?: string;
+    render?: (item: T) => React.ReactNode;
+  }[];
+  data: T[];
 }
 
-export default function TableBody({ cols, data, motionKey }: TableBodyProps) {
+export default function TableBody<T>({ columns, data }: TableBodyProps<T>) {
   return (
     <tbody>
       {data?.map((item: any, index: number) => (
-        <motion.tr
-          key={motionKey ? item[motionKey] : index}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: index * 0.075 }}
-          className={cn('border-b border-gray-300')}
-        >
-          {cols.map((col: any) => (
+        <tr key={index} className={cn('border-b border-gray-300')}>
+          {columns.map((col: any) => (
             <td
               key={col.key || index}
               style={{ width: col.width }}
@@ -27,7 +26,7 @@ export default function TableBody({ cols, data, motionKey }: TableBodyProps) {
               {col.render ? col.render(item) : item[col.key]}
             </td>
           ))}
-        </motion.tr>
+        </tr>
       ))}
     </tbody>
   );

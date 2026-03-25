@@ -1,14 +1,21 @@
 import { cn } from '@/utils/cn';
 
-interface TableHeaderProps {
-  cols: any;
+interface TableHeaderProps<T> {
+  columns: {
+    key: string;
+    label: string;
+    sortable?: boolean;
+    parseNumber?: boolean;
+    width?: string;
+    render?: (item: T) => React.ReactNode;
+  }[];
 }
 
-export default function TableHeader({ cols }: TableHeaderProps) {
+export default function TableHeader<T>({ columns }: TableHeaderProps<T>) {
   return (
-    <thead>
+    <thead className="bg-gray-100">
       <tr>
-        {cols.map((col: any) => (
+        {columns.map((col: any) => (
           <th
             key={col.key}
             style={{ width: col.width }}

@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { localeMiddleware } from '@/middlewares/locale';
 import { authMiddleware } from '@/middlewares/auth';
+import { i18n } from '@/config/i18n';
 
 export function proxy(req: NextRequest) {
   const pathname = req.nextUrl.pathname; // Tại đây có thể kiểm tra pathname để apply middleware
 
-  if (!pathname.startsWith('/vi')) {
+  const pathnameHasLocale = i18n.locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  );
+
+  if (!pathnameHasLocale) {
     const res1 = localeMiddleware(req);
     if (res1) return res1;
   }

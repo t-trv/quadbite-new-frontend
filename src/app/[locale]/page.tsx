@@ -1,11 +1,17 @@
-import Image from 'next/image';
+'use client';
+
+import { useDictionary } from '@/contexts/DictionaryContext';
+import LanguageSwitcher from '@/components/lang/LanguageSwitcher';
 
 export default function Home() {
+  const dict = useDictionary();
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="space-y-4">
-        <h1>This is a base project by using NextJS</h1>
-        <p>You can clone this project from github and use it as a base for your project</p>
+        <LanguageSwitcher current={dict.current} />
+        <h1>{dict.home.title}</h1>
+        <p>{dict.home.description}</p>
       </main>
     </div>
   );

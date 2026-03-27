@@ -1,0 +1,11 @@
+{
+  "current": "en",
+  "home": {
+    "title": "Home",
+    "description": "This is a base project using NextJS"
+  },
+  "common": {
+    "submit": "Submit",
+    "cancel": "Cancel"
+  }
+}

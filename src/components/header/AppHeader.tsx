@@ -1,6 +1,6 @@
 'use client';
 
-import { useSidebar } from '@/contexts/SidebarProvider';
+import { useSidebar } from '@/contexts/SidebarContext';
 import { Bell, Menu } from 'lucide-react';
 
 import { HEADER_HEIGHT } from '@/config/ui';

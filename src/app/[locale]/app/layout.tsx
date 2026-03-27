@@ -8,7 +8,7 @@ import SidebarContent from '@/components/sidebar/SidebarContent';
 
 import queryClient from '@/utils/query';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { SidebarProvider } from '@/contexts/SidebarProvider';
+import { SidebarProvider } from '@/contexts/SidebarContext';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (

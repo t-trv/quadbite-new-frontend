@@ -1,0 +1,11 @@
+{
+  "current": "vi",
+  "home": {
+    "title": "Trang chủ",
+    "description": "Đây là dự án base bằng NextJS"
+  },
+  "common": {
+    "submit": "Gửi",
+    "cancel": "Hủy"
+  }
+}

@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Lexend } from 'next/font/google';
+import { Geist_Mono, Lexend } from 'next/font/google';
+import { DictionaryProvider } from '@/contexts/DictionaryContext';
+import { getDictionary } from '@/utils/dictionary';
+import type { Locale } from '@/config/i18n';
 
 import '@/styles/global.css';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
@@ -24,14 +22,21 @@ export const metadata: Metadata = {
   description: 'Camera Vision',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
 }>) {
+  const { locale } = await params;
+  const dict = await getDictionary(locale);
+
   return (
     <html lang="vi" className={`${lexend.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">
+        <DictionaryProvider dict={dict}>{children}</DictionaryProvider>
+      </body>
     </html>
   );
 }

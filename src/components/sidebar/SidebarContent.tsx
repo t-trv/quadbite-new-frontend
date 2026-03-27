@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useSidebar } from '@/contexts/SidebarProvider';
+import { useSidebar } from '@/contexts/SidebarContext';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH, MAIN_BG_COLOR } from '@/config/ui';
 
 export default function SidebarContent({ children }: { children: React.ReactNode }) {

@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useSidebar } from '@/contexts/SidebarProvider';
+import { useSidebar } from '@/contexts/SidebarContext';
 import { cn } from '@/utils/cn';
 import { motion } from 'motion/react';
 

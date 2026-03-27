@@ -27,13 +27,20 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: Locale | 'favicon.ico' }>;
 }>) {
   const { locale } = await params;
-  const dict = await getDictionary(locale);
+
+  let dict;
+
+  if (locale === 'favicon.ico') {
+    dict = await getDictionary('vi');
+  } else {
+    dict = await getDictionary(locale);
+  }
 
   return (
-    <html lang="vi" className={`${lexend.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang={locale} className={`${lexend.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-screen flex flex-col">
         <DictionaryProvider dict={dict}>{children}</DictionaryProvider>
       </body>

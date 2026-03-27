@@ -18,8 +18,8 @@ const lexend = Lexend({
 });
 
 export const metadata: Metadata = {
-  title: 'Camera Vision',
-  description: 'Camera Vision',
+  title: 'Base Project',
+  description: 'Base Project',
 };
 
 export default async function RootLayout({

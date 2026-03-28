@@ -6,7 +6,6 @@
   },
   "header": {
     "nav": {
-      "home": "Home",
       "shop": "Shop",
       "about": "About",
       "blog": "Blog",
@@ -103,9 +102,21 @@
   "categories": {
     "title": "We Offer Top Notch !!",
     "items": [
-      { "name": "Breakfast", "description": "As export specialists with more than Food Group will work with.", "image": "https://i.pinimg.com/736x/88/5f/63/885f63beea9304a9e9927b2d56a73562.jpg" },
-      { "name": "Appetizers", "description": "As export specialists with more than Food Group will work with.", "image": "https://i.pinimg.com/736x/77/88/99/778899aabbccddeeff00112233445566.jpg" },
-      { "name": "Desserts", "description": "As export specialists with more than Food Group will work with.", "image": "https://i.pinimg.com/736x/11/22/33/112233445566778899aabbccddeeff00.jpg" }
+      {
+        "name": "Breakfast",
+        "description": "As export specialists with more than Food Group will work with.",
+        "image": "https://i.pinimg.com/736x/88/5f/63/885f63beea9304a9e9927b2d56a73562.jpg"
+      },
+      {
+        "name": "Appetizers",
+        "description": "As export specialists with more than Food Group will work with.",
+        "image": "https://i.pinimg.com/736x/77/88/99/778899aabbccddeeff00112233445566.jpg"
+      },
+      {
+        "name": "Desserts",
+        "description": "As export specialists with more than Food Group will work with.",
+        "image": "https://i.pinimg.com/736x/11/22/33/112233445566778899aabbccddeeff00.jpg"
+      }
     ],
     "viewMore": "View More"
   },

@@ -4,8 +4,121 @@
     "title": "Home",
     "description": "This is a base project using NextJS"
   },
+  "header": {
+    "nav": {
+      "home": "Home",
+      "shop": "Shop",
+      "about": "About",
+      "blog": "Blog",
+      "contact": "Contact"
+    }
+  },
+  "sliders": [
+    {
+      "title": "Gayerce Apfour Cour",
+      "subtitle": "Spread Ease (I Fun 2016)",
+      "description": "Discover our delicious and nutritious range of snacks and juices made from the finest ingredients.",
+      "buttonText": "Buy Now"
+    },
+    {
+      "title": "Gayerce Apfour Cour",
+      "subtitle": "Spread Ease (I Fun 2016)",
+      "description": "Discover our delicious and nutritious range of snacks and juices made from the finest ingredients.",
+      "buttonText": "Buy Now"
+    },
+    {
+      "title": "Gayerce Apfour Cour",
+      "subtitle": "Spread Ease (I Fun 2016)",
+      "description": "Discover our delicious and nutritious range of snacks and juices made from the finest ingredients.",
+      "buttonText": "Buy Now"
+    },
+    {
+      "title": "Gayerce Apfour Cour",
+      "subtitle": "Spread Ease (I Fun 2016)",
+      "description": "Discover our delicious and nutritious range of snacks and juices made from the finest ingredients.",
+      "buttonText": "Buy Now"
+    }
+  ],
+  "specialFood": {
+    "titleLeft": "Food",
+    "titleRight": "Special",
+    "description": "Selected healthy snacks special collection, prepared and seasoned to perfection for your delight.",
+    "viewAll": "View All Products",
+    "addToCart": "Add to Cart",
+    "items": [
+      {
+        "name": "Hạt điều rang muối",
+        "tag": "Phổ biến",
+        "price": "$12.00",
+        "imageUrl": "https://i.pinimg.com/1200x/fe/96/1e/fe961ead9c12ef9a65d1d7cd5f5ae653.jpg"
+      },
+      {
+        "name": "Hạnh nhân tẩm mật ong",
+        "tag": "Mới",
+        "price": "$15.00",
+        "imageUrl": "https://i.pinimg.com/736x/b5/fe/25/b5fe255f878f6b228bf6cb105c12b25b.jpg"
+      },
+      {
+        "name": "Quả óc chó tự nhiên",
+        "tag": "Phù hợp nhất",
+        "price": "$18.00",
+        "imageUrl": "https://i.pinimg.com/736x/2f/9d/1a/2f9d1a43054a5f3b7c3933f6fb9be938.jpg"
+      }
+    ]
+  },
+  "bestSeller": {
+    "label": "Bán chạy nhất",
+    "titleTop": "Nước ép",
+    "titleBottom": "Tự nhiên",
+    "description": "Các loại nước ép tự nhiên bán chạy nhất của chúng tôi chứa đầy vitamin và khoáng chất để giúp bạn luôn tràn đầy năng lượng suốt cả ngày. Không thêm đường, chỉ có vị ngọt tinh khiết từ trái cây.",
+    "exploreNow": "Khám phá ngay",
+    "imageUrl": "https://i.pinimg.com/736x/a7/87/b8/a787b8db5d4704bdd31e42c753bc3415.jpg",
+    "stats": {
+      "natural": "Tự nhiên",
+      "noSugar": "Không thêm đường",
+      "vitamins": "Giàu Vitamin"
+    }
+  },
+  "footer": {
+    "description": "Bringing you the finest selection of organic and healthy snacks since 1995. Quality and taste you can trust.",
+    "sitemap": "Site Map",
+    "sitemapLinks": ["Home", "Products", "Our Story", "Blogs", "Contact"],
+    "support": "Support",
+    "supportLinks": ["Help Center", "Terms of Service", "Privacy Policy", "Cookie Policy"],
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Get 10% off your first order by subscribing.",
+      "button": "Join"
+    },
+    "copyright": "All rights reserved."
+  },
   "common": {
+    "brand": "Quadbite",
     "submit": "Submit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "login": "Login",
+    "getStarted": "Get Started",
+    "searchStore": "Search Our Store"
+  },
+  "categories": {
+    "title": "We Offer Top Notch !!",
+    "items": [
+      { "name": "Breakfast", "description": "As export specialists with more than Food Group will work with.", "image": "https://i.pinimg.com/736x/88/5f/63/885f63beea9304a9e9927b2d56a73562.jpg" },
+      { "name": "Appetizers", "description": "As export specialists with more than Food Group will work with.", "image": "https://i.pinimg.com/736x/77/88/99/778899aabbccddeeff00112233445566.jpg" },
+      { "name": "Desserts", "description": "As export specialists with more than Food Group will work with.", "image": "https://i.pinimg.com/736x/11/22/33/112233445566778899aabbccddeeff00.jpg" }
+    ],
+    "viewMore": "View More"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "nameLabel": "Full Name",
+    "forgotPassword": "Forgot password!",
+    "foodDeliveryApp": "food delivery app",
+    "emailPlaceholder": "enter your email",
+    "passwordPlaceholder": "enter your password",
+    "namePlaceholder": "enter your name"
   }
 }

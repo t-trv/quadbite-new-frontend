@@ -18,12 +18,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <BaseHeader>
             <AppHeader />
           </BaseHeader>
-          <div className="flex">
-            <BaseSidebar>
-              <AppSidebar />
-            </BaseSidebar>
-            <SidebarContent>{children}</SidebarContent>
-          </div>
+          {children}
         </SidebarProvider>
       </QueryClientProvider>
     </>

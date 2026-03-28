@@ -1,18 +1,24 @@
-'use client';
-
-import { useDictionary } from '@/contexts/DictionaryContext';
-import LanguageSwitcher from '@/components/lang/LanguageSwitcher';
+import BaseHeader from '@/components/header/BaseHeader';
+import AppHeader from '@/components/header/AppHeader';
+import MainHeroSlider from './_components/MainHeroSlider';
+import Categories from './_components/Categories';
+import SpecialFoods from './_components/SpecialFoods';
+import BestSeller from './_components/BestSeller';
+import MainFooter from './_components/MainFooter';
 
 export default function Home() {
-  const dict = useDictionary();
-
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="space-y-4">
-        <LanguageSwitcher current={dict.current} />
-        <h1>{dict.home.title}</h1>
-        <p>{dict.home.description}</p>
-      </main>
+    <div className="h-screen overflow-y-auto hide-scrollbar">
+      <BaseHeader>
+        <AppHeader />
+      </BaseHeader>
+      <div className="flex flex-col flex-1 bg-white">
+        <MainHeroSlider />
+        <Categories />
+        <SpecialFoods />
+        <BestSeller />
+        <MainFooter />
+      </div>
     </div>
   );
 }

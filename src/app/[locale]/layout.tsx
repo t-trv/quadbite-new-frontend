@@ -3,6 +3,7 @@ import { Geist_Mono, Lexend } from 'next/font/google';
 import { DictionaryProvider } from '@/contexts/DictionaryContext';
 import { getDictionary } from '@/utils/dictionary';
 import type { Locale } from '@/config/i18n';
+import { Toaster } from 'react-hot-toast';
 
 import '@/styles/global.css';
 
@@ -42,7 +43,10 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${lexend.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-screen flex flex-col">
-        <DictionaryProvider dict={dict}>{children}</DictionaryProvider>
+        <DictionaryProvider dict={dict}>
+          {children}
+          <Toaster position="top-right" />
+        </DictionaryProvider>
       </body>
     </html>
   );

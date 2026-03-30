@@ -6,10 +6,41 @@
   },
   "header": {
     "nav": {
-      "shop": "Shop",
-      "about": "About",
-      "blog": "Blog",
-      "contact": "Contact"
+      "shop": {
+        "title": "Shop",
+        "children": [
+          { "title": "Shop", "href": "/app/shop" },
+          { "title": "New Arrivals", "href": "/app/shop?new=true" }
+        ]
+      },
+      "about": {
+        "title": "About",
+        "children": [
+          { "title": "About Us", "href": "/about" },
+          {
+            "title": "Our Team",
+            "href": "/about#team",
+            "children": [
+              { "title": "Management", "href": "/about#management" },
+              { "title": "Chefs", "href": "/about#chefs" }
+            ]
+          }
+        ]
+      },
+      "blog": {
+        "title": "Blog",
+        "children": [
+          { "title": "Latest News", "href": "/blog" },
+          { "title": "Promotions", "href": "/blog?category=promotions" }
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "children": [
+          { "title": "Contact Us", "href": "/contact" },
+          { "title": "Location", "href": "/contact#address" }
+        ]
+      }
     }
   },
   "sliders": [

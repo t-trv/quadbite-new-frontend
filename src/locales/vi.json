@@ -6,10 +6,41 @@
   },
   "header": {
     "nav": {
-      "shop": "Cửa hàng",
-      "about": "Giới thiệu",
-      "blog": "Blog",
-      "contact": "Liên hệ"
+      "shop": {
+        "title": "Cửa hàng",
+        "children": [
+          { "title": "Cửa hàng", "href": "/app/shop" },
+          { "title": "Sản phẩm mới", "href": "/app/shop?new=true" }
+        ]
+      },
+      "about": {
+        "title": "Giới thiệu",
+        "children": [
+          { "title": "Về chúng tôi", "href": "/about" },
+          {
+            "title": "Đội ngũ",
+            "href": "/about#team",
+            "children": [
+              { "title": "Ban quản trị", "href": "/about#management" },
+              { "title": "Đầu bếp", "href": "/about#chefs" }
+            ]
+          }
+        ]
+      },
+      "blog": {
+        "title": "Blog",
+        "children": [
+          { "title": "Tin tức", "href": "/blog" },
+          { "title": "Khuyến mãi", "href": "/blog?category=promotions" }
+        ]
+      },
+      "contact": {
+        "title": "Liên hệ",
+        "children": [
+          { "title": "Liên hệ", "href": "/contact" },
+          { "title": "Địa chỉ", "href": "/contact#address" }
+        ]
+      }
     }
   },
   "sliders": [

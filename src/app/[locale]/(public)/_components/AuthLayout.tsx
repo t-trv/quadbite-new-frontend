@@ -15,7 +15,7 @@ export default function AuthLayout({ children, locale }: { children: React.React
 
   return (
     <div className="min-h-screen bg-[#3E3D32] flex items-center justify-center p-0 md:p-6 font-sans">
-      <div className="w-full max-w-md bg-white min-h-[100vh] md:min-h-[85vh] md:rounded-[3rem] shadow-2xl flex flex-col overflow-hidden relative">
+      <div className="w-full max-w-md bg-white min-h-screen md:min-h-[85vh] md:rounded-[3rem] shadow-2xl flex flex-col overflow-hidden relative">
         
         {/* Top Header Section */}
         <div className="h-[40%] flex flex-col items-center justify-center relative p-8">

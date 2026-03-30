@@ -13,14 +13,7 @@ import { SidebarProvider } from '@/contexts/SidebarContext';
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <SidebarProvider>
-          <BaseHeader>
-            <AppHeader />
-          </BaseHeader>
-          {children}
-        </SidebarProvider>
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </>
   );
 }

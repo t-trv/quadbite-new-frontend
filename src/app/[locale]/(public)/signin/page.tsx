@@ -8,6 +8,7 @@ import { useState } from 'react';
 import api from '@/utils/api';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'next/navigation';
+import Button from '@/components/ui/Button';
 
 export default function SignInPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
@@ -28,13 +29,12 @@ export default function SignInPage({ params }: { params: Promise<{ locale: strin
       // The user will fill the actual API URL here
       const response = await api.post('/auth/login', data);
       console.log('Sign in success:', response.data);
-      
+
       // Save user to store
       setUser(response.data.data || response.data); // Adjust based on API structure
-      
+
       // Redirect to home or dashboard
       router.push(`/${locale}`);
-      
     } catch (error) {
       console.error('Sign in error:', error);
     } finally {
@@ -88,13 +88,14 @@ export default function SignInPage({ params }: { params: Promise<{ locale: strin
 
         {/* Submit Button */}
         <div className="pb-4">
-          <button
+          <Button
             type="submit"
-            disabled={loading}
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-zinc-900 font-black py-4 rounded-2xl shadow-xl transition-all hover:scale-[1.02] active:scale-95 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            size="md"
+            isLoading={loading}
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-zinc-900 font-black rounded-2xl shadow-xl transition-all hover:scale-[1.02] active:scale-95 text-lg"
           >
-            {loading ? '...' : authDict.signIn}
-          </button>
+            {authDict.signIn}
+          </Button>
         </div>
       </form>
     </AuthLayout>

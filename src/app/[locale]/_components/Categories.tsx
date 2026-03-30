@@ -49,7 +49,7 @@ export default function Categories() {
               </button>
 
               {/* Subtle Overlay Pattern */}
-              <div className="absolute inset-0 z-0 opacity-5 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+              <div className="absolute inset-0 z-0 opacity-5 pointer-events-none bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
             </motion.div>
           ))}
         </div>

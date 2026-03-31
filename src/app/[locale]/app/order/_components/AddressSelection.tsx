@@ -15,8 +15,10 @@ interface Address {
   district: string;
 }
 
+import api from '@/utils/api';
+
 const fetchAddresses = async (userId: number) => {
-  const { data } = await axios.get(`http://localhost:3000/api/addresses?userId=${userId}`);
+  const { data } = await api.get(`/addresses?userId=${userId}`);
   return data.data;
 };
 

@@ -10,10 +10,10 @@ import OrderSidebar from './_components/OrderSidebar';
 import { useDictionary } from '@/contexts/DictionaryContext';
 import { Loader2 } from 'lucide-react';
 
+import api from '@/utils/api';
+
 const fetchFoods = async (mainCategoryId: string) => {
-  const { data } = await axios.get(
-    `http://localhost:3000/api/categories/main/${mainCategoryId}/foods`,
-  );
+  const { data } = await api.get(`/categories/main/${mainCategoryId}/foods`);
   return data.data;
 };
 

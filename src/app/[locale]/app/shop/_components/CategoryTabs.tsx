@@ -4,8 +4,10 @@ import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useDictionary } from '@/contexts/DictionaryContext';
 
+import api from '@/utils/api';
+
 const fetchSideCategories = async (mainCategoryId: string) => {
-  const { data } = await axios.get(`http://localhost:3000/api/categories/side?main_category_id=${mainCategoryId}`);
+  const { data } = await api.get(`/categories/side?main_category_id=${mainCategoryId}`);
   return data.data;
 };
 

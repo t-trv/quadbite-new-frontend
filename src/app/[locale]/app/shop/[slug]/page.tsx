@@ -11,8 +11,10 @@ import Link from 'next/link';
 import { useDictionary } from '@/contexts/DictionaryContext';
 import { formatPrice } from '@/utils/currency';
 
+import api from '@/utils/api';
+
 const fetchFoods = async () => {
-  const { data } = await axios.get('http://localhost:3000/api/foods');
+  const { data } = await api.get('/foods');
   return data.data;
 };
 

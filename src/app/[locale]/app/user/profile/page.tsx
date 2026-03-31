@@ -17,10 +17,12 @@ import {
   Settings,
   LogOut,
   CheckCircle2,
+  ShoppingBag,
 } from 'lucide-react';
 import Header from '@/components/header/Header';
 import Button from '@/components/ui/Button';
 import Upload from '@/components/ui/Upload';
+import { useDictionary } from '@/contexts/DictionaryContext';
 
 const fetchUserProfile = async (userId: number) => {
   const { data } = await api.get(`/users/${userId}`);
@@ -28,6 +30,7 @@ const fetchUserProfile = async (userId: number) => {
 };
 
 export default function UserProfilePage() {
+  const dict = useDictionary();
   const { user: storeUser, setUser, logout } = useUserStore();
   const router = useRouter();
   const params = useParams();
@@ -83,11 +86,11 @@ export default function UserProfilePage() {
       setUser(updatedUser);
       setIsEditing(false);
       refetch();
-      toast.success('Cập nhật thông tin thành công!');
+      toast.success(dict.common.successUpdate);
     },
     onError: (error: any) => {
       console.error('Update error:', error);
-      toast.error(error.response?.data?.message || 'Đã có lỗi xảy ra khi cập nhật thông tin!');
+      toast.error(error.response?.data?.message || dict.common.errorUpdate);
     },
   });
 
@@ -114,7 +117,7 @@ export default function UserProfilePage() {
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center gap-4 text-zinc-400">
           <Loader2 className="animate-spin" size={48} />
-          <p className="font-bold">Đang tải thông tin cá nhân...</p>
+          <p className="font-bold">{dict.profile.loading}</p>
         </main>
       </div>
     );
@@ -126,9 +129,9 @@ export default function UserProfilePage() {
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center gap-6 text-center px-6">
           <h2 className="text-2xl font-black text-zinc-900">
-            Không tìm thấy thông tin người dùng!
+            {dict.profile.error}
           </h2>
-          <Button onClick={() => router.push(`/${locale}/app/shop`)}>Quay lại cửa hàng</Button>
+          <Button onClick={() => router.push(`/${locale}/app/shop`)}>{dict.common.back}</Button>
         </main>
       </div>
     );
@@ -140,7 +143,7 @@ export default function UserProfilePage() {
         month: 'long',
         year: 'numeric',
       })
-    : 'Sắp ra mắt';
+    : dict.profile.comingSoon;
 
   return (
     <div className="min-h-screen bg-zinc-50 flex flex-col font-sans text-zinc-900">
@@ -155,7 +158,7 @@ export default function UserProfilePage() {
           <div className="h-8 w-8 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-white group-hover:border-zinc-300 transition-all font-black uppercase">
             <ChevronLeft size={18} />
           </div>
-          {isEditing ? 'Hủy chỉnh sửa' : 'Quay lại'}
+          {isEditing ? dict.common.cancelEdit : dict.common.back}
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -202,10 +205,10 @@ export default function UserProfilePage() {
                     className="px-3 py-1 rounded-full bg-blue-50 text-blue-600 border border-blue-100 text-[10px] font-black uppercase tracking-wider"
                   >
                     {role === 'admin'
-                      ? 'Quản trị viên'
+                      ? dict.profile.roles.admin
                       : role === 'staff'
-                        ? 'Nhân viên'
-                        : 'Thành viên'}
+                        ? dict.profile.roles.staff
+                        : dict.profile.roles.member}
                   </span>
                 ))}
               </div>
@@ -225,7 +228,7 @@ export default function UserProfilePage() {
                     ) : (
                       <CheckCircle2 size={18} className="mr-2" />
                     )}
-                    Lưu
+                    {dict.common.save}
                   </Button>
                 ) : (
                   <Button
@@ -235,7 +238,7 @@ export default function UserProfilePage() {
                     className="w-full rounded-2xl border-2 border-zinc-100 py-4 font-black hover:bg-zinc-50"
                   >
                     <Settings size={18} className="mr-2" />
-                    Chỉnh sửa hồ sơ
+                    {dict.common.edit}
                   </Button>
                 )}
                 <Button
@@ -244,7 +247,17 @@ export default function UserProfilePage() {
                   className="w-full rounded-2xl bg-zinc-900 py-4 font-black text-white hover:bg-zinc-800"
                 >
                   <LogOut size={18} className="mr-2" />
-                  Đăng xuất
+                  {dict.common.logout}
+                </Button>
+
+                <Button
+                  type="button"
+                  onClick={() => router.push(`/${locale}/app/order/history`)}
+                  variant="outline"
+                  className="w-full rounded-2xl border-2 border-zinc-100 py-4 font-black hover:bg-zinc-50"
+                >
+                  <ShoppingBag size={18} className="mr-2" />
+                  {dict.profile.orderHistory}
                 </Button>
               </div>
             </div>
@@ -255,13 +268,13 @@ export default function UserProfilePage() {
             <div className="bg-white rounded-[40px] p-10 border border-zinc-100 shadow-xl shadow-zinc-200/40">
               <h2 className="text-xl font-black text-zinc-900 mb-10 flex items-center gap-3">
                 <UserIcon className="text-primary" size={24} />
-                Thông tin tài khoản
+                {dict.profile.title}
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-2">
                   <label className="text-xs font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
-                    <Mail size={14} /> Email liên hệ
+                    <Mail size={14} /> {dict.profile.email}
                   </label>
                   {isEditing ? (
                     <input
@@ -277,7 +290,7 @@ export default function UserProfilePage() {
 
                 <div className="space-y-2">
                   <label className="text-xs font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
-                    <Phone size={14} /> Số điện thoại
+                    <Phone size={14} /> {dict.profile.phone}
                   </label>
                   {isEditing ? (
                     <input
@@ -288,14 +301,14 @@ export default function UserProfilePage() {
                     />
                   ) : (
                     <div className="text-lg font-bold text-zinc-900">
-                      {user.phone || 'Chưa cập nhật'}
+                      {user.phone || dict.profile.notUpdated}
                     </div>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-xs font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
-                    <UserIcon size={14} /> Họ và tên
+                    <UserIcon size={14} /> {dict.profile.fullName}
                   </label>
                   {isEditing ? (
                     <input
@@ -311,7 +324,7 @@ export default function UserProfilePage() {
 
                 <div className="space-y-2">
                   <label className="text-xs font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
-                    <Calendar size={14} /> Ngày tham gia
+                    <Calendar size={14} /> {dict.profile.joinedDate}
                   </label>
                   <div className="text-lg font-bold text-zinc-600">{creationDate}</div>
                 </div>
@@ -320,21 +333,20 @@ export default function UserProfilePage() {
 
             {/* Quick Stats or Preferences? */}
             <div className="bg-linear-to-br from-red-600 to-red-700 rounded-[40px] p-10 text-white shadow-xl shadow-red-200/50">
-              <h2 className="text-xl font-black mb-4">Bạn là khách hàng VIP!</h2>
+              <h2 className="text-xl font-black mb-4">{dict.profile.vipTitle}</h2>
               <p className="text-red-100 font-medium mb-8 leading-relaxed opacity-90">
-                Cảm ơn bạn đã đồng hành cùng QuadBite. Bạn đang được hưởng các đặc quyền ưu tiên
-                giao hàng và các mã giảm giá dành riêng cho thành viên kim cương.
+                {dict.profile.vipDesc}
               </p>
               <div className="flex gap-4">
                 <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
                   <div className="text-sm opacity-70 font-black uppercase tracking-tighter">
-                    Điểm tích lũy
+                    {dict.profile.points}
                   </div>
                   <div className="text-2xl font-black">2,450</div>
                 </div>
                 <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
                   <div className="text-sm opacity-70 font-black uppercase tracking-tighter">
-                    Hạng thành viên
+                    {dict.profile.membership}
                   </div>
                   <div className="text-2xl font-black">Gold</div>
                 </div>

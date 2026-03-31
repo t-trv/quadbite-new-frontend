@@ -6,6 +6,8 @@ import api from '@/utils/api';
 import Button from '@/components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useDictionary } from '@/contexts/DictionaryContext';
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,6 +15,7 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
+  const dict = useDictionary();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const setUser = useUserStore((state) => state.setUser);
@@ -34,7 +37,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       onClose();
     } catch (err: any) {
       console.error('Sign in error:', err);
-      setError('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+      setError(dict.common?.errorUpdate || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
     } finally {
       setLoading(false);
     }
@@ -63,8 +66,8 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
             <div className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h2 className="text-2xl font-black text-zinc-900">Đăng nhập</h2>
-                  <p className="text-zinc-500 text-sm mt-1">Vui lòng đăng nhập để tiếp tục thanh toán</p>
+                  <h2 className="text-2xl font-black text-zinc-900">{dict.auth?.signIn || 'Login'}</h2>
+                  <p className="text-zinc-500 text-sm mt-1">{dict.auth?.welcomeSubtitle || 'Please sign in to continue'}</p>
                 </div>
                 <button 
                   onClick={onClose}
@@ -82,18 +85,18 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-zinc-400 text-xs font-black uppercase tracking-widest">Tài khoản / Email</label>
+                  <label className="text-zinc-400 text-xs font-black uppercase tracking-widest">{dict.auth?.emailLabel || 'Account / Email'}</label>
                   <input
                     name="text"
                     type="text"
-                    placeholder="Nhập tài khoản của bạn"
+                    placeholder={dict.auth?.emailPlaceholder || 'Username'}
                     className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl px-5 py-3.5 text-zinc-900 focus:border-red-500 outline-none transition-all placeholder:text-zinc-300 font-medium"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-zinc-400 text-xs font-black uppercase tracking-widest">Mật khẩu</label>
+                  <label className="text-zinc-400 text-xs font-black uppercase tracking-widest">{dict.auth?.passwordLabel || 'Password'}</label>
                   <div className="relative">
                     <input
                       name="password"
@@ -119,16 +122,16 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
                     disabled={loading}
                     className="w-full rounded-2xl shadow-xl shadow-red-100 uppercase tracking-widest font-black"
                   >
-                    {loading ? <Loader2 className="animate-spin" size={24} /> : 'Đăng nhập ngay'}
+                    {loading ? <Loader2 className="animate-spin" size={24} /> : (dict.auth?.signInNow || 'Login Now')}
                   </Button>
                 </div>
               </form>
 
               <div className="mt-8 text-center">
                 <p className="text-zinc-400 text-sm">
-                  Chưa có tài khoản?{' '}
+                  {dict.auth?.noAccount || "Don't have an account?"}{' '}
                   <button className="text-zinc-900 font-bold hover:underline">
-                    Đăng ký ngay
+                    {dict.auth?.signUpNow || "Sign up now"}
                   </button>
                 </p>
               </div>

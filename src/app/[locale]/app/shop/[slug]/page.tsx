@@ -8,6 +8,8 @@ import Header from '@/components/header/Header';
 import { useCartStore } from '@/stores/cart';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
+import { useDictionary } from '@/contexts/DictionaryContext';
+import { formatPrice } from '@/utils/currency';
 
 const fetchFoods = async () => {
   const { data } = await axios.get('http://localhost:3000/api/foods');
@@ -15,6 +17,7 @@ const fetchFoods = async () => {
 };
 
 export default function FoodDetailPage() {
+  const dict = useDictionary();
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
@@ -37,7 +40,7 @@ export default function FoodDetailPage() {
         <Header />
         <div className="flex-1 flex flex-col items-center justify-center gap-4 text-zinc-400">
           <Loader2 className="animate-spin" size={48} />
-          <p>Đang tải thông tin món ăn...</p>
+          <p>{dict.common.loading}</p>
         </div>
       </div>
     );
@@ -48,8 +51,8 @@ export default function FoodDetailPage() {
       <div className="min-h-screen bg-zinc-50 flex flex-col">
         <Header />
         <div className="flex-1 flex flex-col items-center justify-center gap-6">
-          <h2 className="text-2xl font-bold text-zinc-900">Không tìm thấy món ăn này!</h2>
-          <Button onClick={() => router.push(`/${locale}/app/shop`)}>Quay lại cửa hàng</Button>
+          <h2 className="text-2xl font-bold text-zinc-900">{dict.common.noData}</h2>
+          <Button onClick={() => router.push(`/${locale}/app/shop`)}>{dict.common.back}</Button>
         </div>
       </div>
     );
@@ -76,7 +79,7 @@ export default function FoodDetailPage() {
           className="flex items-center gap-2 text-zinc-500 hover:text-primary transition-colors font-bold mb-8"
         >
           <ArrowLeft size={20} />
-          Quay lại cửa hàng
+          {dict.common.back}
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-8 rounded-[40px] shadow-sm border border-zinc-100">
@@ -90,7 +93,7 @@ export default function FoodDetailPage() {
             <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-sm flex items-center gap-2">
               <Star className="text-yellow-400 fill-yellow-400" size={18} />
               <span className="font-bold text-zinc-900">4.8</span>
-              <span className="text-zinc-400 text-sm">(120+ đánh giá)</span>
+              <span className="text-zinc-400 text-sm">(120+ {dict.shop.reviews})</span>
             </div>
           </div>
 
@@ -99,20 +102,18 @@ export default function FoodDetailPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <span className="px-4 py-1.5 rounded-full bg-red-50 text-red-600 text-xs font-black uppercase tracking-widest">
-                  {food.side_category?.name || food.side_category_id || 'Phổ biến'}
+                  {food.side_category?.name || food.side_category_id || (dict.shop as any)?.popular || 'Popular'}
                 </span>
                 <div className="flex items-center gap-1.5 text-zinc-400 text-sm font-medium">
                   <Clock size={16} />
-                  {food.preparation_time} phút
+                  {food.preparation_time} {dict.shop.preparationTime}
                 </div>
               </div>
 
               <h1 className="text-4xl font-black text-zinc-900">{food.name}</h1>
 
               <div className="text-3xl font-black text-red-600">
-                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-                  Number(currentPrice),
-                )}
+                {formatPrice(currentPrice, locale)}
               </div>
 
               <p className="text-zinc-500 leading-relaxed text-lg">{food.description}</p>
@@ -124,7 +125,7 @@ export default function FoodDetailPage() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-sm font-black uppercase tracking-widest text-zinc-400 mb-4">
-                  Chọn kích cỡ
+                  {dict.shop.selectSize}
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {food.variants?.map((v: any) => (
@@ -137,7 +138,7 @@ export default function FoodDetailPage() {
                           : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400'
                       }`}
                     >
-                      {v.name} (+{new Intl.NumberFormat('vi-VN').format(parseInt(v.price_adjust))}đ)
+                      {(dict.shop.variants as any)?.sizes?.[v.name] || v.name} (+{formatPrice(v.price_adjust, locale)})
                     </button>
                   ))}
                   <button
@@ -148,7 +149,7 @@ export default function FoodDetailPage() {
                         : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400'
                     }`}
                   >
-                    Tiêu chuẩn
+                    {dict.shop.all}
                   </button>
                 </div>
               </div>
@@ -176,7 +177,7 @@ export default function FoodDetailPage() {
                   size="md"
                   className="w-full sm:flex-1 text-lg rounded-2xl shadow-xl shadow-red-100 uppercase tracking-widest font-black"
                 >
-                  Thêm vào giỏ hàng
+                  {dict.shop.addToCart}
                 </Button>
               </div>
             </div>
@@ -187,10 +188,10 @@ export default function FoodDetailPage() {
               </div>
               <div>
                 <div className="text-sm font-bold text-zinc-900">
-                  Chuẩn bị bởi đầu bếp chuyên nghiệp
+                  {dict.shop.chefNote}
                 </div>
                 <div className="text-xs text-zinc-400">
-                  Đảm bảo hương vị và vệ sinh an toàn thực phẩm
+                  {dict.shop.hygieneNote}
                 </div>
               </div>
             </div>
@@ -200,7 +201,7 @@ export default function FoodDetailPage() {
         {/* Related Foods */}
         <section className="mt-20">
           <h2 className="text-3xl font-black text-zinc-900 mb-8 px-4 border-l-8 border-primary ml-2 py-2">
-            Món ăn liên quan
+            {dict.shop.related}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {foods
@@ -223,7 +224,7 @@ export default function FoodDetailPage() {
                       {f.name}
                     </h3>
                     <div className="text-red-600 font-black mt-1">
-                      {new Intl.NumberFormat('vi-VN').format(Number(f.price))}đ
+                      {formatPrice(f.price, locale)}
                     </div>
                   </Link>
                 </div>

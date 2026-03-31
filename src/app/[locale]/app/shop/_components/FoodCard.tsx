@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 import { useCartStore } from '@/stores/cart';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { formatPrice } from '@/utils/currency';
 
 interface FoodCardProps {
   food: {
@@ -44,9 +45,7 @@ export default function FoodCard({ food }: FoodCardProps) {
 
       <div className="mt-4 flex items-center justify-between">
         <div className="text-lg font-black text-red-600">
-          {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-            Number(food.price),
-          )}
+          {formatPrice(food.price, locale)}
         </div>
         <button
           onClick={() => addItem(food)}

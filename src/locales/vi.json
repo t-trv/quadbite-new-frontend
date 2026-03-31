@@ -1,112 +1,121 @@
 {
-  "current": "vi",
-  "home": {
-    "title": "Trang chủ",
-    "description": "Đây là dự án base bằng NextJS"
-  },
   "header": {
     "nav": {
+      "mainFood": "Món ăn chính",
+      "dessert": "Tráng miệng",
+      "drink": "Nước uống",
+      "cart": "Giỏ hàng",
+      "staff": "Nhóm nhân viên",
+      "admin": "Quản trị viên"
+    },
+    "menu": "Menu",
+    "categories": "Danh mục",
+    "deals": "Ưu đãi",
+    "order": "Đặt hàng ngay",
+    "home": {
       "shop": {
         "title": "Cửa hàng",
         "children": [
-          { "title": "Cửa hàng", "href": "/app/shop" },
-          { "title": "Sản phẩm mới", "href": "/app/shop?new=true" }
-        ]
-      },
-      "about": {
-        "title": "Giới thiệu",
-        "children": [
-          { "title": "Về chúng tôi", "href": "/about" },
           {
-            "title": "Đội ngũ",
-            "href": "/about#team",
-            "children": [
-              { "title": "Ban quản trị", "href": "/about#management" },
-              { "title": "Đầu bếp", "href": "/about#chefs" }
-            ]
+            "title": "Món ăn chính",
+            "href": "/app/shop?category=main-food"
+          },
+          {
+            "title": "Tráng miệng",
+            "href": "/app/shop?category=dessert"
+          },
+          {
+            "title": "Nước uống",
+            "href": "/app/shop?category=drink"
           }
         ]
       },
-      "blog": {
-        "title": "Blog",
+      "aboutUs": {
+        "title": "Về chúng tôi",
         "children": [
-          { "title": "Tin tức", "href": "/blog" },
-          { "title": "Khuyến mãi", "href": "/blog?category=promotions" }
+          {
+            "title": "Giới thiệu",
+            "href": "/app/about-us"
+          },
+          {
+            "title": "Liên hệ",
+            "href": "/app/contact"
+          }
         ]
       },
-      "contact": {
-        "title": "Liên hệ",
+      "deals": {
+        "title": "Ưu đãi",
         "children": [
-          { "title": "Liên hệ", "href": "/contact" },
-          { "title": "Địa chỉ", "href": "/contact#address" }
+          {
+            "title": "Tất cả ưu đãi",
+            "href": "/app/deals",
+            "children": [
+              {
+                "title": "Ưu đãi món ăn",
+                "href": "/app/deals"
+              },
+              {
+                "title": "Ưu đãi đồ uống",
+                "href": "/app/deals"
+              }
+            ]
+          }
         ]
       }
     }
   },
-  "sliders": [
-    {
-      "title": "Sinh tố quả mọng",
-      "subtitle": "Sự tươi mát tự nhiên",
-      "description": "Khám phá các loại sinh tố quả mọng tươi ngon và bổ dưỡng của chúng tôi, được làm từ những nguyên liệu tốt nhất.",
-      "buttonText": "Mua ngay",
-      "imageUrl": "https://previews.dropbox.com/p/thumb/AC_gM_UVA7cwrNGksoXnc5qMlk65OfUe1lt6WD99cnT0rnBs6OaAVXInmxlmww7Sdnm52HhY6zlTdEI1UBP9arPq2-XHHTOBN0pDzwYU4qkgHzGBEqyiPX3N2mep7jOodU6RkzPjyWQP6BcAdKqF1BxU61KVgdne8Vs1l3NG1m7oTsmqqy8P-R5IaOrynMGRSMPWecO4TTY13I2yNFz2NGuqmTRVC_Iv5Mw4U9y3kvEN94teZZR-ulyrWWbHYey8bo0Gm5NQAtSU8Wax04ZF0EZYdYTd8dvEfdvrOhMtj_0TjZIcO5lgBGdpM6SFtfEKrmXAjjY_MtQoKaH6eKQLRMts/p.png?is_prewarmed=true"
-    },
-    {
-      "title": "Sinh tố quả mọng",
-      "subtitle": "Sự tươi mát tự nhiên",
-      "description": "Khám phá các loại sinh tố quả mọng tươi ngon và bổ dưỡng của chúng tôi, được làm từ những nguyên liệu tốt nhất.",
-      "buttonText": "Mua ngay",
-      "imageUrl": "https://i.pinimg.com/736x/a7/87/b8/a787b8db5d4704bdd31e42c753bc3415.jpg"
-    },
-    {
-      "title": "Sinh tố quả mọng",
-      "subtitle": "Sự tươi mát tự nhiên",
-      "description": "Khám phá các loại sinh tố quả mọng tươi ngon và bổ dưỡng của chúng tôi, được làm từ những nguyên liệu tốt nhất.",
-      "buttonText": "Mua ngay",
-      "imageUrl": "https://i.pinimg.com/736x/a7/87/b8/a787b8db5d4704bdd31e42c753bc3415.jpg"
-    },
-    {
-      "title": "Sinh tố quả mọng",
-      "subtitle": "Sự tươi mát tự nhiên",
-      "description": "Khám phá các loại sinh tố quả mọng tươi ngon và bổ dưỡng của chúng tôi, được làm từ những nguyên liệu tốt nhất.",
-      "buttonText": "Mua ngay",
-      "imageUrl": "https://i.pinimg.com/736x/a7/87/b8/a787b8db5d4704bdd31e42c753bc3415.jpg"
+  "hero": {
+    "label": "Tốt nhất cho bạn nội bộ!",
+    "title": "Món ăn ngon và tốt cho sức khỏe mà bạn yêu thích.",
+    "description": "Thưởng thức các bữa ăn bổ dưỡng được chế biến từ nguyên liệu tươi ngon hữu cơ.",
+    "button": "Cửa hàng ngay",
+    "trust": "30k+ Đã tin tưởng & Khách hàng hài lòng.",
+    "chef": {
+      "name": "Bếp trưởng Van Voan",
+      "specialty": "Bếp trưởng cao cấp"
     }
-  ],
+  },
   "specialFood": {
-    "titleLeft": "Thức ăn",
-    "titleRight": "Đặc biệt",
+    "title": "Tươi ngon từ bếp của chúng tôi",
+    "titleRecipes": "Công thức hàng đầu",
+    "titleTop": "trong tuần",
     "description": "Bộ sưu tập đặc biệt gồm các món ăn nhẹ lành mạnh được lựa chọn cẩn thận, được chế biến và tẩm ướp hoàn hảo để mang lại niềm vui cho bạn.",
     "viewAll": "Xem tất cả sản phẩm",
     "addToCart": "Thêm vào giỏ hàng",
+    "readRecipe": "Xem công thức",
+    "chefNote": "Ngon và tươi từ nguồn gốc địa phương.",
     "items": [
       {
         "name": "Hạt điều rang muối",
-        "tag": "Phổ biến",
-        "price": "$12.00",
-        "imageUrl": "https://i.pinimg.com/1200x/fe/96/1e/fe961ead9c12ef9a65d1d7cd5f5ae653.jpg"
+        "tag": "Hạt dinh dưỡng",
+        "price": 50000,
+        "imageUrl": "https://ucec827d3366a66b36e9809d8500.previews.dropboxusercontent.com/p/thumb/AC_Qz3hwCGbwbkNYJOG3Dhln316v66WcaCGwYVyWItA39-UWx0sd-CMmq252FmxldVJQIqiOSJjcmgDZRuO26BJSG2srWtu2NobtwlHQQot7cWfnIKEOh1osLSDY5J3wFgRWaKya1XBD-xggHH-j-WLCcvSwgzIQR68FPtFXt2cTcL3GjtOkacPtTfEIAw-QP87wicuIaGFmfNA8SZK4W_bUZ1ZCSHc_tU3kwpo6YzXWlgaYqGrKpyd-5AdCgmkQfJ5aGI6cyZbM5ppQevDhtCm8DOyGf4PelWgO7gvujEayhshP1U62CgvuBgE9ZmkZzUfI4gXaEEAhtf9JEbW5elYsIxKggp-seWqBArfPOszj8A/p.png"
       },
       {
-        "name": "Hạnh nhân tẩm mật ong",
-        "tag": "Mới",
-        "price": "$15.00",
-        "imageUrl": "https://i.pinimg.com/736x/b5/fe/25/b5fe255f878f6b228bf6cb105c12b25b.jpg"
+        "name": "Salad ức gà áp chảo",
+        "tag": "Healthy Salad",
+        "price": 55000,
+        "imageUrl": "https://uc021c2e2ff509aa1f64fbfbae83.previews.dropboxusercontent.com/p/thumb/AC9S41y4LbRX-7JDc1xSjrnA3pCbDcNnp1mOQQFO5tONMqR84gdn5LEE7QK1MnVDCLb-9rHKnO1nYQhsZStEQYOKkEeC5eVfXtOoHFbI_8EioEwqdC4nBKx78pKvT8sUmSUAzQUpShU522wk8bGZPJI9cwp40A5k1tDc4HjV2Icd50H9n3oDRVWh3D_2tdNZGvyhgowy4Kj4YA-N2nwUWcLS69jReV_wvR7UtlVj5cIfAZVKm-Y0tmFGWEStEz-dmJ9681ogbVWx56nrdmye0z-TNsBnDVRLJpKoE9puKL-f2EWiH8hxYbVGiyRaL-htrej7EHsOCTpzQOFKXEIOZhemIAWRpeQ4tGCaTMT0zZ2TVg/p.png"
       },
       {
-        "name": "Quả óc chó tự nhiên",
-        "tag": "Phù hợp nhất",
-        "price": "$18.00",
-        "imageUrl": "https://i.pinimg.com/736x/2f/9d/1a/2f9d1a43054a5f3b7c3933f6fb9be938.jpg"
+        "name": "Nước ép cam nguyên chất",
+        "tag": "Thức uống tươi",
+        "price": 35000,
+        "imageUrl": "https://uc8446d984cfe05fb3fbd4635a95.previews.dropboxusercontent.com/p/thumb/AC_3WeJnpQSarG7hbTSVULCPN8qRvWweh8DJ6esoBYEeR8u--tyrFeJ3v1-zYcFYifq0Ex0J7MsMSNZDOL1yKtNEWCKRUkOgwTjPCQbNnzn1DknhhOQOYXJ3tFcxVskwjLW-rF3swdmSLbqmARGXEQpiH4GNWVDV-CA0OD1cwmgLdHFvyp_DNu_k7J5g9KRIfEEruRiIrwLTC7NXdLtPvMPx9sG9EhjxfvvXcZ1cF5CitAJ9T_Um-CQCD5z0D0pY2HTv4Dx64AwxRphPWnZs4dCAghjqlYE2LQVcny7Ih4xfK_6vB3NoJDnZT0Tl4yX6T8dNiIkQP1FpJxi0NL_y4LYDR4qFQUhuVBhHgNW7_tQqQA/p.png"
       }
     ]
   },
   "bestSeller": {
+    "offer": "Ưu đãi có hạn",
+    "title": "Ưu đãi lên đến",
+    "titlePercent": "50% Giảm giá",
+    "titleSeason": "Cho mùa lễ hội này !",
     "label": "Bán chạy nhất",
     "titleTop": "Nước ép",
     "titleBottom": "Tự nhiên",
     "description": "Các loại nước ép tự nhiên bán chạy nhất của chúng tôi chứa đầy vitamin và khoáng chất để giúp bạn luôn tràn đầy năng lượng suốt cả ngày. Không thêm đường, chỉ có vị ngọt tinh khiết từ trái cây.",
     "exploreNow": "Khám phá ngay",
-    "imageUrl": "https://i.pinimg.com/736x/a7/87/b8/a787b8db5d4704bdd31e42c753bc3415.jpg",
+    "imageUrl": "https://uc810f74ea22cf29105bd7a490f7.previews.dropboxusercontent.com/p/thumb/AC-4qxkNKGozA9lKBcGPcmVqZo8DQcowYomei7ObeQdBKgEGMhNJE6B71L3AQW5Ixv3_07TCcefQfVTT-gAVzWt7sbyZ-VAXNxHF1xpOUxDHru41Mtryqw2MF9ZAiYk2KvgHoA4sM0W6_mJ6xw1CiU03Rg-H2J4RSXLwk3s1t3M7aUxLvo-i7KtiwUUkFdDwSP6jzRVIG07Jjbk2XIqIy2WGGXVAs7sRm01-c7llTjU_2f5duSU39QH0BXEyhoS_lHNqjIEP2FOL44QR8MJr5etJlSmfaxciAL5tlZ_9FrfrHErkYcSrNFXMY7qGHZ0CG1ryUZ_Fyos4sC4AXXooxis2B9PPEi_bDeUUYc2UIOJe3g/p.png",
     "stats": {
       "natural": "Tự nhiên",
       "noSugar": "Không thêm đường",
@@ -114,16 +123,17 @@
     }
   },
   "footer": {
-    "description": "Mang đến cho bạn sự lựa chọn tốt nhất về đồ ăn nhẹ hữu cơ và lành mạnh từ năm 1995. Chất lượng và hương vị bạn có thể tin tưởng.",
-    "sitemap": "Sơ đồ trang web",
-    "sitemapLinks": ["Trang chủ", "Sản phẩm", "Câu chuyện của chúng tôi", "Blogs", "Liên hệ"],
-    "support": "Hỗ trợ",
-    "supportLinks": [
-      "Trung tâm hỗ trợ",
-      "Điều khoản dịch vụ",
-      "Chính sách bảo mật",
-      "Chính sách Cookie"
-    ],
+    "about": {
+      "title": "Về chúng tôi",
+      "description": "Chúng tôi cung cấp các món ăn healthy và chất lượng nhất."
+    },
+    "quickLinks": {
+      "title": "Liên kết nhanh",
+      "home": "Trang chủ",
+      "shop": "Cửa hàng",
+      "categories": "Danh mục",
+      "contact": "Liên hệ"
+    },
     "newsletter": {
       "title": "Bản tin",
       "description": "Nhận ưu đãi 10% cho đơn hàng đầu tiên bằng cách đăng ký.",
@@ -134,10 +144,21 @@
   "common": {
     "brand": "Quadbite",
     "submit": "Gửi",
+    "save": "Lưu",
     "cancel": "Hủy",
     "login": "Đăng nhập",
+    "logout": "Đăng xuất",
     "getStarted": "Bắt đầu",
-    "searchStore": "Tìm kiếm cửa hàng"
+    "searchStore": "Tìm kiếm cửa hàng",
+    "back": "Quay lại",
+    "edit": "Chỉnh sửa hồ sơ",
+    "cancelEdit": "Hủy chỉnh sửa",
+    "viewAll": "Xem tất cả",
+    "loading": "Đang tải...",
+    "noData": "Không tìm thấy dữ liệu",
+    "errorTitle": "Đã có lỗi xảy ra",
+    "successUpdate": "Cập nhật thành công!",
+    "errorUpdate": "Lỗi cập nhật!"
   },
   "categories": {
     "title": "Chúng tôi cung cấp hàng đầu !!",
@@ -145,31 +166,204 @@
       {
         "name": "Bữa sáng",
         "description": "Giao hàng từ các chuyên gia với hơn Food Group sẽ làm việc cùng.",
-        "image": "https://i.pinimg.com/736x/88/5f/63/885f63beea9304a9e9927b2d56a73562.jpg"
+        "image": "https://i.pinimg.com/1200x/fd/0d/8a/fd0d8ac5ab49a2620ec3e4bd8cdeb397.jpg"
       },
       {
         "name": "Món khai vị",
         "description": "Giao hàng từ các chuyên gia với hơn Food Group sẽ làm việc cùng.",
-        "image": "https://i.pinimg.com/736x/77/88/99/778899aabbccddeeff00112233445566.jpg"
+        "image": "https://i.pinimg.com/736x/12/52/ba/1252ba7a66132a1da3cb72cc7bd9b266.jpg"
       },
       {
         "name": "Tráng miệng",
         "description": "Giao hàng từ các chuyên gia với hơn Food Group sẽ làm việc cùng.",
-        "image": "https://i.pinimg.com/736x/11/22/33/112233445566778899aabbccddeeff00.jpg"
+        "image": "https://i.pinimg.com/736x/82/54/53/8254538fbe6ac43ae861a916571a7c86.jpg"
       }
-    ],
-    "viewMore": "Xem thêm"
+    ]
+  },
+  "shop": {
+    "title": "Menu món ăn",
+    "subtitle": "Khám phá hương vị tuyệt vời của QuadBite",
+    "all": "Tất cả",
+    "reviews": "đánh giá",
+    "preparationTime": "phút",
+    "selectSize": "Chọn kích cỡ",
+    "addToCart": "Thêm vào giỏ hàng",
+    "related": "Món ăn liên quan",
+    "chefNote": "Chuẩn bị bởi đầu bếp chuyên nghiệp",
+    "hygieneNote": "Đảm bảo hương vị và vệ sinh an toàn thực phẩm",
+    "variants": {
+      "sizes": {
+        "Siêu lớn": "Siêu lớn",
+        "Lớn": "Lớn",
+        "Vừa": "Vừa",
+        "Nhỏ": "Nhỏ"
+      }
+    },
+    "popular": "Phổ biến",
+    "sideCategories": {
+      "mainFood": ["Cơm", "Nướng", "Mì", "Salad", "Súp"],
+      "dessert": ["Bánh ngọt", "Hoa quả", "Kem"],
+      "drink": ["Nước ép", "Nước Ngọt", "Trà", "Trà sữa"]
+    }
+  },
+  "cart": {
+    "title": "Giỏ hàng của bạn",
+    "yourOrder": "Đơn hàng của bạn",
+    "empty": "Giỏ hàng trống",
+    "summary": "Tổng đơn hàng",
+    "subtotal": "Tạm tính",
+    "shipping": "Phí vận chuyển",
+    "total": "Tổng cộng",
+    "checkout": "Thanh toán",
+    "remove": "Xóa",
+    "totalPriceItem": "Thành tiền"
+  },
+  "profile": {
+    "title": "Thông tin tài khoản",
+    "accountDetails": "Chi tiết tài khoản",
+    "fullName": "Họ và tên",
+    "email": "Email liên hệ",
+    "phone": "Số điện thoại",
+    "joinedDate": "Ngày tham gia",
+    "vipTitle": "Bạn là khách hàng VIP!",
+    "vipDesc": "Cảm ơn bạn đã đồng hành cùng QuadBite. Bạn đang được hưởng các đặc quyền ưu tiên giao hàng và các mã giảm giá dành riêng cho thành viên kim cương.",
+    "points": "Điểm tích lũy",
+    "membership": "Hạng thành viên",
+    "orderHistory": "Xem lịch sử đơn hàng",
+    "notUpdated": "Chưa cập nhật",
+    "roles": {
+      "admin": "Quản trị viên",
+      "staff": "Nhân viên",
+      "member": "Thành viên"
+    },
+    "loading": "Đang tải thông tin cá nhân...",
+    "error": "Không tìm thấy thông tin người dùng!",
+    "comingSoon": "Sắp ra mắt"
+  },
+  "checkout": {
+    "title": "Thông tin chi tiết đơn hàng",
+    "back": "Quay lại trang trước",
+    "orderItems": "Danh sách món ăn",
+    "paymentMethod": "Phương thức thanh toán",
+    "note": "Ghi chú cho nhà hàng",
+    "saveToCart": "Lưu vào giỏ hàng",
+    "selectAddress": "Địa chỉ giao hàng",
+    "addAddress": "Thêm địa chỉ mới",
+    "orderSummary": "Tóm tắt đơn hàng",
+    "placeOrder": "Đặt hàng ngay",
+    "noPaymentNote": "Hệ thống đang được kết nối với cổng thanh toán. Vui lòng quay lại sớm hoặc liên hệ nhân viên để được hỗ trợ trực tiếp.",
+    "cod": "Thanh toán khi nhận hàng",
+    "banking": "Chuyển khoản ngân hàng",
+    "card": "Thẻ tín dụng/ghi nợ",
+    "errors": {
+      "selectAddress": "Vui lòng chọn địa chỉ giao hàng!",
+      "featureDeveloping": "Tính năng đang phát triển",
+      "orderSuccessNoId": "Đặt hàng thành công nhưng không lấy được mã đơn hàng. Vui lòng kiểm tra lịch sử đơn hàng!",
+      "orderError": "Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!"
+    },
+    "notePlaceholder": "Ví dụ: Không cay, nhiều rau...",
+    "couponCode": "Mã giảm giá",
+    "apply": "Áp dụng",
+    "discount": "Giảm giá",
+    "subtotal": "Tạm tính",
+    "shipping": "Phí vận chuyển",
+    "total": "Tổng cộng"
+  },
+  "orderSuccess": {
+    "title": "Đặt hàng thành công!",
+    "subtitle": "Cảm ơn bạn đã lựa chọn QuadBite. Đơn hàng {id} của bạn đang được chuẩn bị.",
+    "status": "Trạng thái đơn hàng",
+    "deliveryInfo": "Thông tin giao hàng",
+    "deliveryEstimate": "Dự kiến giao: {time}",
+    "paymentDetails": "Chi tiết thanh toán",
+    "method": "Phương thức",
+    "paymentStatus": "Trạng thái thanh toán",
+    "total": "Tổng cộng",
+    "itemList": "Danh sách món ăn ({count})",
+    "variant": "Loại",
+    "quantity": "SL",
+    "pricePerItem": "{price} / món",
+    "continueShopping": "Tiếp tục mua sắm",
+    "orderHistory": "Xem lịch sử đơn hàng",
+    "emailConfirmation": "Quý khách sẽ nhận được email xác nhận đơn hàng sớm nhất.",
+    "orderNotFound": "Không tìm thấy đơn hàng!",
+    "backToShop": "Quay lại cửa hàng",
+    "loading": "Đang tải thông tin đơn hàng...",
+    "preparing": "Đang chuẩn bị nội dung..."
+  },
+  "orderPending": {
+    "title": "Đang chờ thanh toán",
+    "subtitle": "Vui lòng thực hiện chuyển khoản để hoàn tất đơn hàng.",
+    "transferInfo": "Thông tin chuyển khoản",
+    "accountName": "Tên tài khoản",
+    "accountNumber": "Số tài khoản",
+    "bank": "Ngân hàng",
+    "amount": "Số tiền cần thanh toán",
+    "content": "Nội dung chuyển khoản",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép!",
+    "done": "Tôi đã thanh toán"
+  },
+  "history": {
+    "title": "Lịch sử đơn hàng",
+    "subtitle": "Quản lý và theo dõi các đơn hàng của bạn",
+    "orderId": "Mã đơn hàng",
+    "status": {
+      "label": "Trạng thái",
+      "confirmed": "Đã xác nhận",
+      "cancelled": "Đã hủy",
+      "pending": "Chờ thanh toán",
+      "processing": "Đang xử lý"
+    },
+    "date": "Ngày đặt",
+    "items": "món",
+    "trackOrder": "Theo dõi",
+    "viewDetails": "Chi tiết đơn hàng",
+    "noOrders": "Chưa có đơn hàng nào",
+    "noOrdersDesc": "Bạn chưa thực hiện bất kỳ giao dịch nào. Hãy bắt đầu mua sắm ngay!",
+    "exploreMenu": "Khám phá menu",
+    "orderLabel": "Đơn hàng",
+    "moreItems": "và {count} món ăn khác...",
+    "reorder": "Đặt lại món này",
+    "total": "Tổng cộng"
   },
   "auth": {
+    "foodDeliveryApp": "Ứng dụng giao món ăn số 1",
     "signIn": "Đăng nhập",
     "signUp": "Đăng ký",
-    "emailLabel": "Địa chỉ Email",
+    "emailLabel": "Email của bạn",
+    "emailPlaceholder": "example@email.com",
     "passwordLabel": "Mật khẩu",
+    "passwordPlaceholder": "Nhập mật khẩu của bạn",
     "nameLabel": "Họ và tên",
-    "forgotPassword": "Quên mật khẩu!",
-    "foodDeliveryApp": "ứng dụng giao đồ ăn",
-    "emailPlaceholder": "nhập email của bạn",
-    "passwordPlaceholder": "nhập mật khẩu của bạn",
-    "namePlaceholder": "nhập tên của bạn"
-  }
+    "namePlaceholder": "Nhập họ và tên của bạn",
+    "forgotPassword": "Quên mật khẩu?",
+    "noAccount": "Chưa có tài khoản?",
+    "haveAccount": "Đã có tài khoản?",
+    "signInNow": "Đăng nhập ngay",
+    "signUpNow": "Đăng ký ngay",
+    "welcomeTitle": "Chào mừng trở lại!",
+    "welcomeSubtitle": "Vui lòng đăng nhập để tiếp tục khám phá QuadBite",
+    "registerTitle": "Tạo tài khoản mới",
+    "registerSubtitle": "Tham gia cùng hàng ngàn khách hàng hài lòng tại QuadBite"
+  },
+  "home": {
+    "mapTitle": "Vị trí của chúng tôi"
+  },
+  "sliders": [
+    {
+      "title": "Món ăn tuyệt vời",
+      "subtitle": "Khám phá hương vị",
+      "description": "Thưởng thức các bữa ăn bổ dưỡng được chế biến từ nguyên liệu tươi ngon hữu cơ.",
+      "buttonText": "Đặt ngay",
+      "imageUrl": "https://uce5449fc1595de4a69d2ae23ad6.previews.dropboxusercontent.com/p/thumb/AC87DcU4T2HKzwDmh2-NsvE_HcBGSNThaN4wQftd_DyLFSaHnOLywOe-gGnbkRX6-sbLGJ9GzdANN7KEOcQQ004szR31guJ30bl4Q-bRLmPC_YW-DjpeBuP64eeDqhj_7jn1S1QnVqJA9Qi9-ZNnCkP6nLyaZtmfAswmv0pNUyYqt8tvkPnEGO1ElrJJ897esIKLu0wqzxk4wYt1pr5Re1MN4qYzTi-_d0wQ1QAKrDT6QyiQFMQVBVAk8coVIdH_XKDtYZsaxRd6WSg4gnMIFHO9jMTmgJK6hRhbcgYNxCI6KZ28T2J6yUHLW5hufp0b4xnGEJH_yw0aqpe6uXp3kIzoY4UZfgxO_PKVSA09YuFLuA/p.png"
+    },
+    {
+      "title": "Sức khỏe là vàng",
+      "subtitle": "Ăn xanh sống sạch",
+      "description": "Các món salad tươi ngon mỗi ngày giúp bạn tràn đầy năng lượng.",
+      "buttonText": "Xem menu",
+      "imageUrl": "https://ucce3e33fc593e572e22457ac059.previews.dropboxusercontent.com/p/thumb/AC_DxUUR250M5zD6r6Kg5BDocSl0f4bNTMek1KqbpKRvzF6EqBvZyL4V4_2UlEoe26HlDL7uPYUIZmFC0iLFfJfG3Hc1Toidu5Pslsq3YpLliwaz1JbNLXeECLAmWeGTNSjb0AQmneTP2QXnv-S76IF4eABC__RSE5EoFosHk1k7ECrVvjT5aXwKRAnWklMh9KJIGEAhhs_N20bJ4SIX5nqu0L6wMRf7C4Fuf0kzvsNhsrk-ruE8xMb1YmjfdKIvJ5D1A-pXKvqDg_r1gwm0hLM7mQdvGxMQOkDMsM8tU2RdN2QZwUKDFFkpeNVoWIEd-lPfl7ztcirFuCGQvIjdlTip6TyE2iuWBH9_kQnzVnIpbg/p.png"
+    }
+  ]
 }

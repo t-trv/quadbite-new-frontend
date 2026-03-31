@@ -1,6 +1,7 @@
 'use client';
 
 import { Truck, Wallet, CreditCard } from 'lucide-react';
+import { useDictionary } from '@/contexts/DictionaryContext';
 
 export default function PaymentMethods({ 
   selectedMethod, 
@@ -9,16 +10,17 @@ export default function PaymentMethods({
   selectedMethod: string; 
   onSelect: (id: string) => void;
 }) {
+  const dict = useDictionary();
   const methods = [
-    { id: 'cod', label: 'Thanh toán khi nhận hàng', icon: <Truck size={18} /> },
-    { id: 'internet_banking', label: 'Chuyển khoản ngân hàng', icon: <Wallet size={18} /> },
-    { id: 'card', label: 'Thanh toán qua thẻ', icon: <CreditCard size={18} /> }
+    { id: 'cod', label: dict.checkout.cod, icon: <Truck size={18} /> },
+    { id: 'internet_banking', label: dict.checkout.banking, icon: <Wallet size={18} /> },
+    { id: 'card', label: dict.checkout.card, icon: <CreditCard size={18} /> }
   ];
 
   return (
     <div className="bg-white rounded-[32px] p-8 border border-zinc-100 shadow-sm">
       <h2 className="text-lg font-black text-zinc-900 mb-6 flex items-center gap-2 font-sans">
-        Thông tin thanh toán
+        {dict.checkout.paymentMethod}
       </h2>
       
       <div className="space-y-4">

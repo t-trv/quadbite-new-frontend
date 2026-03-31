@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import Header from '@/components/header/Header';
 import Button from '@/components/ui/Button';
+import { useDictionary } from '@/contexts/DictionaryContext';
+import { formatPrice } from '@/utils/currency';
 import { useState } from 'react';
 
 const fetchOrderDetails = async (id: string) => {
@@ -22,6 +24,7 @@ const fetchOrderDetails = async (id: string) => {
 };
 
 export default function OrderPendingPage() {
+  const dict = useDictionary();
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
@@ -50,7 +53,7 @@ export default function OrderPendingPage() {
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center gap-4 text-zinc-400">
           <Loader2 className="animate-spin" size={48} />
-          <p className="font-bold">Đang tải thông tin thanh toán...</p>
+          <p className="font-bold">{dict.orderSuccess.loading}</p>
         </main>
       </div>
     );
@@ -62,8 +65,8 @@ export default function OrderPendingPage() {
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center gap-6 text-center px-6">
           <AlertCircle size={64} className="text-red-500" />
-          <h2 className="text-2xl font-black text-zinc-900">Không tìm thấy đơn hàng!</h2>
-          <Button onClick={() => router.push(`/${locale}/app/shop`)}>Quay lại cửa hàng</Button>
+          <h2 className="text-2xl font-black text-zinc-900">{dict.orderSuccess.orderNotFound}</h2>
+          <Button onClick={() => router.push(`/${locale}/app/shop`)}>{dict.orderSuccess.backToShop}</Button>
         </main>
       </div>
     );
@@ -79,8 +82,8 @@ export default function OrderPendingPage() {
             <div className="h-16 w-16 bg-yellow-50 rounded-full flex items-center justify-center text-yellow-600 mx-auto mb-4 border border-yellow-100">
               <Clock size={32} />
             </div>
-            <h1 className="text-3xl font-black text-zinc-900 mb-2 tracking-tight">Đang chờ thanh toán</h1>
-            <p className="text-zinc-500 font-bold">Vui lòng quét mã QR bên dưới để hoàn tất đơn hàng</p>
+            <h1 className="text-3xl font-black text-zinc-900 mb-2 tracking-tight">{dict.orderPending.title}</h1>
+            <p className="text-zinc-500 font-bold">{dict.orderPending.subtitle}</p>
           </div>
 
           {/* QR Code Section */}
@@ -98,19 +101,20 @@ export default function OrderPendingPage() {
           {/* Payment Details */}
           <div className="bg-zinc-50 rounded-[32px] p-6 mb-10 text-left space-y-4">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-bold text-zinc-400 uppercase tracking-wider">Số tiền cần trả</span>
+              <span className="text-sm font-bold text-zinc-400 uppercase tracking-wider">{dict.orderPending.amount}</span>
               <span className="text-xl font-black text-zinc-900">
-                {new Intl.NumberFormat('vi-VN').format(Number(order.totalPrice))}đ
+                {formatPrice(order.totalPrice, locale)}
               </span>
             </div>
             <div className="h-px bg-zinc-100" />
             <div className="flex justify-between items-center">
-              <span className="text-sm font-bold text-zinc-400 uppercase tracking-wider">Mã đơn hàng</span>
+              <span className="text-sm font-bold text-zinc-400 uppercase tracking-wider">{dict.history.orderId}</span>
               <div className="flex items-center gap-2">
                 <span className="text-lg font-black text-zinc-900 italic">#{order.orderId}</span>
                 <button 
                   onClick={() => handleCopy(`#${order.orderId}`)}
                   className="p-2 hover:bg-zinc-200 rounded-lg transition-colors text-zinc-400"
+                  title={dict.orderPending.copy}
                 >
                   {copied ? <CheckCircle2 size={18} className="text-green-500" /> : <Copy size={18} />}
                 </button>
@@ -123,14 +127,14 @@ export default function OrderPendingPage() {
                 onClick={() => router.push(`/${locale}/app/order/success/${order.orderId}`)}
                 className="w-full rounded-2xl bg-zinc-900 py-4 font-black text-white hover:bg-zinc-800 transition-all active:scale-95"
             >
-                Tôi đã hoàn tất thanh toán
+                {dict.orderPending.done}
             </Button>
             <button 
               onClick={() => router.push(`/${locale}/app/order/history`)}
               className="text-zinc-400 font-bold hover:text-zinc-900 transition-colors flex items-center justify-center gap-2 mx-auto"
             >
               <ChevronLeft size={18} />
-              Xem lịch sử đơn hàng
+              {dict.profile.orderHistory}
             </button>
           </div>
         </div>

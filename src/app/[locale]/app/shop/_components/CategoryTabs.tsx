@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
+import { useDictionary } from '@/contexts/DictionaryContext';
 
 const fetchSideCategories = async (mainCategoryId: string) => {
   const { data } = await axios.get(`http://localhost:3000/api/categories/side?main_category_id=${mainCategoryId}`);
@@ -17,6 +18,7 @@ export default function CategoryTabs({
   activeCategory: string; 
   onCategoryChange: (id: string) => void;
 }) {
+  const dict = useDictionary();
   const { data: sideCategories, isLoading, isError } = useQuery({
     queryKey: ['sideCategories', mainCategoryId],
     queryFn: () => fetchSideCategories(mainCategoryId),
@@ -26,7 +28,7 @@ export default function CategoryTabs({
     return (
       <div className="flex items-center gap-3 mb-8 h-10 overflow-hidden">
         <Loader2 className="animate-spin text-zinc-300" size={20} />
-        <span className="text-zinc-400 text-sm animate-pulse">Đang tải danh mục...</span>
+        <span className="text-zinc-400 text-sm animate-pulse">{dict.common.loading}</span>
       </div>
     );
   }
@@ -34,14 +36,25 @@ export default function CategoryTabs({
   if (isError) {
     return (
       <div className="mb-8 text-red-500 text-sm">
-        Không thể tải danh mục phụ.
+        {dict.common.errorTitle}
       </div>
     );
   }
 
+  const keyMap: Record<string, string> = {
+    'main-food': 'mainFood',
+    'dessert': 'dessert',
+    'drink': 'drink'
+  };
+
+  const sideCatLabels = (dict.shop as any).sideCategories?.[keyMap[mainCategoryId]] || [];
+
   const allCategories = [
-    { id: 'all', name: 'Tất cả' },
-    ...(sideCategories || [])
+    { id: 'all', name: dict.shop.all },
+    ...(sideCategories || []).map((cat: any, index: number) => ({
+      ...cat,
+      name: sideCatLabels[index] || cat.name
+    }))
   ];
 
   return (

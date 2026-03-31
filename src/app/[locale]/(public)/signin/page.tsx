@@ -33,6 +33,13 @@ export default function SignInPage({ params }: { params: Promise<{ locale: strin
       // Save user to store
       setUser(response.data.data || response.data); // Adjust based on API structure
 
+      // Track analytics event
+      try {
+        await api.post('/analytics/track', { type: 'LOGIN' });
+      } catch (trackError) {
+        console.error('Analytics tracking error:', trackError);
+      }
+
       // Redirect to home or dashboard
       router.push(`/${locale}`);
     } catch (error) {

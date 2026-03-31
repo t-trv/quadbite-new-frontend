@@ -8,8 +8,11 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AuthModal from '@/components/auth/AuthModal';
+import { useDictionary } from '@/contexts/DictionaryContext';
+import { formatPrice } from '@/utils/currency';
 
 export default function CartPage() {
+  const dict = useDictionary();
   const { items, addItem, removeItem, clearCart, totalPrice } = useCartStore();
   const { user } = useUserStore();
   const params = useParams();
@@ -36,9 +39,9 @@ export default function CartPage() {
             className="flex items-center gap-2 text-zinc-500 hover:text-primary transition-colors font-bold mb-4"
           >
             <ArrowLeft size={20} />
-            Quay lại cửa hàng
+            {dict.common.back}
           </Link>
-          <h1 className="text-4xl font-black text-zinc-900">Giỏ hàng của bạn</h1>
+          <h1 className="text-4xl font-black text-zinc-900">{dict.cart.title}</h1>
         </div>
 
         {items.length === 0 ? (
@@ -47,12 +50,12 @@ export default function CartPage() {
                 <ShoppingBag size={48} />
             </div>
             <div className="text-center">
-                <h2 className="text-2xl font-bold text-zinc-900">Giỏ hàng trống</h2>
-                <p className="text-zinc-500 mt-2">Có vẻ như bạn chưa thêm món ăn nào vào giỏ hàng.</p>
+                <h2 className="text-2xl font-bold text-zinc-900">{dict.cart.empty}</h2>
+                <p className="text-zinc-500 mt-2">...</p>
             </div>
             <Link href={`/${locale}/app/shop`}>
                 <Button size="md" className="rounded-2xl">
-                    Khám phá menu ngay
+                    {dict.common.viewAll}
                 </Button>
             </Link>
           </div>
@@ -63,13 +66,20 @@ export default function CartPage() {
               {items.map((item) => (
                 <div key={item.id} className="bg-white p-6 rounded-3xl border border-zinc-100 flex items-center gap-6 shadow-sm">
                   <div className="h-24 w-24 overflow-hidden rounded-2xl bg-zinc-100 shrink-0">
-                    <img src={item.image_url} alt={item.name} className="h-full w-full object-cover" />
+                    <img src={`${process.env.NEXT_PUBLIC_API_URL}${item.image_url}`} alt={item.name} className="h-full w-full object-cover" />
                   </div>
                   
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold text-zinc-900 truncate">{item.name}</h3>
+                    <h3 className="text-xl font-bold text-zinc-900 truncate">
+                      {item.name}
+                      {item.variant && (
+                        <span className="ml-2 text-sm text-zinc-400 font-medium">
+                          ({(dict.shop.variants as any)?.sizes?.[item.variant.name] || item.variant.name})
+                        </span>
+                      )}
+                    </h3>
                     <div className="text-lg font-black text-red-600 mt-1">
-                        {new Intl.NumberFormat('vi-VN').format(item.price)}đ
+                        {formatPrice(item.price, locale)}
                     </div>
                   </div>
 
@@ -90,9 +100,9 @@ export default function CartPage() {
                   </div>
 
                   <div className="text-right hidden sm:block min-w-[120px]">
-                    <div className="text-sm text-zinc-400 font-medium">Thành tiền</div>
+                    <div className="text-sm text-zinc-400 font-medium">{dict.cart.totalPriceItem}</div>
                     <div className="text-xl font-black text-zinc-900">
-                        {new Intl.NumberFormat('vi-VN').format(item.price * item.quantity)}đ
+                        {formatPrice(item.price * item.quantity, locale)}
                     </div>
                   </div>
                 </div>
@@ -104,7 +114,7 @@ export default function CartPage() {
                     className="flex items-center gap-2 text-zinc-400 hover:text-red-500 transition-colors font-bold"
                 >
                     <Trash2 size={20} />
-                    Xóa tất cả giỏ hàng
+                    {dict.cart.remove}
                 </button>
               </div>
             </div>
@@ -112,24 +122,24 @@ export default function CartPage() {
             {/* Summary Sidebar */}
             <div className="lg:sticky lg:top-[100px] h-fit">
               <div className="bg-white p-8 rounded-3xl border border-zinc-100 shadow-xl space-y-6">
-                <h2 className="text-2xl font-bold text-zinc-900">Tổng đơn hàng</h2>
+                <h2 className="text-2xl font-bold text-zinc-900">{dict.cart.summary}</h2>
                 
                 <div className="space-y-4 pt-4">
                   <div className="flex items-center justify-between text-zinc-500">
-                    <span>Tạm tính</span>
+                    <span>{dict.cart.subtotal}</span>
                     <span className="font-bold text-zinc-900">
-                        {new Intl.NumberFormat('vi-VN').format(totalPrice())}đ
+                        {formatPrice(totalPrice(), locale)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-zinc-500">
-                    <span>Phí vận chuyển</span>
-                    <span className="font-bold text-green-600">Miễn phí</span>
+                    <span>{dict.cart.shipping}</span>
+                    <span className="font-bold text-green-600">Free</span>
                   </div>
                   <div className="h-px bg-zinc-100 my-4" />
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-zinc-900">Tổng cộng</span>
+                    <span className="text-lg font-bold text-zinc-900">{dict.cart.total}</span>
                     <span className="text-3xl font-black text-red-600">
-                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice())}
+                        {formatPrice(totalPrice(), locale)}
                     </span>
                   </div>
                 </div>
@@ -139,7 +149,7 @@ export default function CartPage() {
                   size="md"
                   className="w-full text-lg rounded-2xl shadow-lg shadow-red-100 mt-4"
                 >
-                  Thanh toán ngay
+                  {dict.cart.checkout}
                 </Button>
                 
                 <p className="text-center text-xs text-zinc-400">

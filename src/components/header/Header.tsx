@@ -21,9 +21,9 @@ export default function Header({ activeMainCategory, onMainCategoryChange }: Hea
   const router = useRouter();
 
   const mainCategories = [
-    { id: 'main-food', name: 'Món chính' },
-    { id: 'dessert', name: 'Tráng miệng' },
-    { id: 'drink', name: 'Đồ uống' },
+    { id: 'main-food', name: dict.header?.nav?.mainFood || 'Main Food' },
+    { id: 'dessert', name: dict.header?.nav?.dessert || 'Dessert' },
+    { id: 'drink', name: dict.header?.nav?.drink || 'Drink' },
   ];
 
   const handleClick = (id: string) => {
@@ -99,7 +99,7 @@ export default function Header({ activeMainCategory, onMainCategoryChange }: Hea
               className="rounded-full flex items-center gap-2 bg-red-600 hover:bg-red-700"
             >
               <ShoppingCart size={18} />
-              <span className="hidden sm:inline">Giỏ hàng</span>
+              <span className="hidden sm:inline">{dict.header?.nav?.cart || 'Cart'}</span>
               {items.length > 0 && (
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[10px] font-bold text-red-600">
                   {items.length}
@@ -114,7 +114,7 @@ export default function Header({ activeMainCategory, onMainCategoryChange }: Hea
                 className="rounded-full flex items-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
               >
                 <Users size={18} />
-                <span className="hidden sm:inline">Nhân viên</span>
+                <span className="hidden sm:inline">{dict.header?.nav?.staff || 'Staff'}</span>
               </Button>
             )}
 
@@ -125,7 +125,7 @@ export default function Header({ activeMainCategory, onMainCategoryChange }: Hea
                 className="rounded-full flex items-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
               >
                 <Settings size={18} />
-                <span className="hidden sm:inline">Quản trị</span>
+                <span className="hidden sm:inline">{dict.header?.nav?.admin || 'Admin'}</span>
               </Button>
             )}
           </div>

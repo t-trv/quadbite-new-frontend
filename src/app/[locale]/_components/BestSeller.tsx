@@ -19,20 +19,20 @@ export default function BestSeller() {
                 viewport={{ once: true }}
                 className="mb-8 rounded-full bg-primary/20 px-6 py-2 text-primary font-black uppercase tracking-widest text-sm border border-primary/30"
             >
-                Limited Time Offer
+                {bestDict?.offer || 'Special Offer'}
             </motion.div>
 
           {/* Main Content */}
           <div className="max-w-3xl space-y-8">
             <h2 className="text-5xl font-black uppercase leading-none text-white md:text-7xl">
-              Get Upto <span className="text-primary italic">50% Offer</span> <br />
-              On Festival Season !
+              {bestDict?.title || 'Get'} <span className="text-primary italic">{bestDict?.titlePercent || 'Discount'}</span> <br />
+              {bestDict?.titleSeason || 'Today!'}
             </h2>
             <p className="mx-auto max-w-lg text-lg text-zinc-400">
-              {bestDict.description}
+              {bestDict?.description || 'Healthy and delicious meals delivered to your door.'}
             </p>
             <button className="rounded-full bg-primary px-12 py-5 text-lg font-bold uppercase tracking-widest text-white transition-all hover:scale-105 hover:bg-primary/90 active:scale-95 shadow-[0_10px_30px_rgba(227,0,27,0.4)]">
-              {bestDict.exploreNow}
+              {bestDict?.exploreNow || 'Explore Now'}
             </button>
           </div>
 
@@ -46,7 +46,7 @@ export default function BestSeller() {
               transition={{ duration: 1, type: 'spring' }}
             >
               <img
-                src={bestDict.imageUrl}
+                src={bestDict?.imageUrl?.startsWith('http') ? bestDict.imageUrl : (bestDict?.imageUrl ? `${process.env.NEXT_PUBLIC_API_URL}${bestDict.imageUrl}` : 'https://i.pinimg.com/736x/a7/87/b8/a787b8db5d4704bdd31e42c753bc3415.jpg')}
                 alt="Healthy Salad"
                 className="relative z-10 h-auto w-full max-w-2xl drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
               />

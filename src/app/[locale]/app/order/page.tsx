@@ -17,8 +17,10 @@ import OrderSummary from './_components/OrderSummary';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import api from '@/utils/api';
+import { useDictionary } from '@/contexts/DictionaryContext';
 
 export default function OrderPage() {
+  const dict = useDictionary();
   const { items, addItem, removeItem, clearCart } = useCartStore();
   const { user } = useUserStore();
   const router = useRouter();
@@ -49,12 +51,12 @@ export default function OrderPage() {
         setTimeout(() => clearCart(), 100);
       } else {
         console.error('No order ID found in response:', responseData);
-        toast.error('Đặt hàng thành công nhưng không lấy được mã đơn hàng. Vui lòng kiểm tra lịch sử đơn hàng!');
+        toast.error(dict.checkout.errors.orderSuccessNoId);
       }
     },
     onError: (error) => {
       console.error('Order error:', error);
-      toast.error('Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!');
+      toast.error(dict.checkout.errors.orderError);
     },
   });
 
@@ -67,12 +69,12 @@ export default function OrderPage() {
 
   const handleCheckout = () => {
     if (!selectedAddressId) {
-      toast.error('Vui lòng chọn địa chỉ giao hàng!');
+      toast.error(dict.checkout.errors.selectAddress);
       return;
     }
 
     if (paymentMethod === 'card') {
-      toast('Tính năng đang phát triển', { icon: '🚧' });
+      toast(dict.checkout.errors.featureDeveloping, { icon: '🚧' });
       return;
     }
 
@@ -93,7 +95,7 @@ export default function OrderPage() {
             }
           : {
               id: 'small',
-              name: 'Nhỏ',
+              name: 'Small',
               price_adjust: 0,
             },
       })),
@@ -116,7 +118,7 @@ export default function OrderPage() {
       <main className="flex-1 mx-auto w-full max-w-[1400px] px-6 py-8">
         {/* Header Section */}
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-black text-zinc-900">Thông tin chi tiết đơn hàng</h1>
+          <h1 className="text-2xl font-black text-zinc-900">{dict.checkout.title}</h1>
           <Button
             variant="secondary"
             size="sm"
@@ -124,7 +126,7 @@ export default function OrderPage() {
             onClick={() => router.back()}
           >
             <ChevronLeft size={18} className="mr-1" />
-            Quay lại trang trước
+            {dict.checkout.back}
           </Button>
         </div>
 
@@ -143,7 +145,7 @@ export default function OrderPage() {
               className="rounded-full bg-white border border-zinc-200 text-zinc-900 font-black px-8 py-4 hover:bg-zinc-50 shadow-sm"
             >
               <Bookmark size={20} className="mr-2" />
-              Lưu vào giỏ hàng
+              {dict.checkout.saveToCart}
             </Button>
           </div>
 

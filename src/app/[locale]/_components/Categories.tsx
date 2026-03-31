@@ -24,7 +24,7 @@ export default function Categories() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {catDict.items.map((item: CategoryItem, index: number) => (
+          {(catDict?.items || []).map((item: CategoryItem, index: number) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -35,7 +35,15 @@ export default function Categories() {
             >
               {/* Circular Image with Hover Effect */}
               <div className="relative mb-8 h-48 w-48 overflow-hidden rounded-full border-4 border-zinc-800 shadow-2xl transition-transform duration-500 group-hover:scale-110">
-                <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                <img
+                  src={
+                    item.image.startsWith('http')
+                      ? item.image
+                      : `${process.env.NEXT_PUBLIC_API_URL}${item.image}`
+                  }
+                  alt={item.name}
+                  className="h-full w-full object-cover"
+                />
               </div>
 
               <h3 className="mb-4 text-2xl font-black text-white uppercase">{item.name}</h3>

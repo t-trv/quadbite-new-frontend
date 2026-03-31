@@ -15,6 +15,8 @@ import {
 import Button from '@/components/ui/Button';
 import { Suspense } from 'react';
 import Header from '@/components/header/Header';
+import { useDictionary } from '@/contexts/DictionaryContext';
+import { formatPrice } from '@/utils/currency';
 
 const fetchOrder = async (id: string) => {
   const { data } = await api.get(`/orders/${id}`);
@@ -23,6 +25,7 @@ const fetchOrder = async (id: string) => {
 
 function OrderSuccessContent() {
   const router = useRouter();
+  const dict = useDictionary();
   const params = useParams();
   const locale = params.locale as string;
   const orderId = params.id;
@@ -41,7 +44,7 @@ function OrderSuccessContent() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center gap-4 text-zinc-400 py-40">
         <Loader2 className="animate-spin" size={48} />
-        <p className="font-bold">Đang tải thông tin đơn hàng...</p>
+        <p className="font-bold">{dict.orderSuccess.loading}</p>
       </div>
     );
   }
@@ -50,9 +53,9 @@ function OrderSuccessContent() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center gap-6 py-40 text-center">
         <h2 className="text-2xl font-bold text-zinc-900">
-          {isError ? 'Đã có lỗi xảy ra!' : 'Không tìm thấy đơn hàng!'}
+          {isError ? dict.common.errorTitle : dict.orderSuccess.orderNotFound}
         </h2>
-        <Button onClick={() => router.push(`/${locale}/app/shop`)}>Quay lại cửa hàng</Button>
+        <Button onClick={() => router.push(`/${locale}/app/shop`)}>{dict.orderSuccess.backToShop}</Button>
       </div>
     );
   }
@@ -68,18 +71,19 @@ function OrderSuccessContent() {
       </div>
 
       <h1 className="text-4xl font-black text-zinc-900 mb-2 tracking-tight">
-        Đặt hàng thành công!
+        {dict.orderSuccess.title}
       </h1>
       <p className="text-zinc-500 text-lg mb-8 max-w-md mx-auto">
-        Cảm ơn bạn đã lựa chọn QuadBite. Đơn hàng{' '}
-        <span className="text-zinc-900 font-bold">#{order.orderId}</span> của bạn đang được chuẩn
-        bị.
+        {dict.orderSuccess.subtitle?.replace('{id}', (order.orderId || '').toString())}
       </p>
 
       {/* Order Status Badge */}
       <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-50 text-yellow-700 text-sm font-black uppercase tracking-wider mb-10 border border-yellow-100">
         <Clock size={16} />
-        {order.orderStatus?.name || 'Đang xử lý'}
+        {order.orderStatus?.id === 'confirmed' ? dict.history.status.confirmed : 
+         order.orderStatus?.id === 'cancelled' ? dict.history.status.cancelled :
+         order.orderStatus?.id === 'pending' ? dict.history.status.pending :
+         dict.history.status.processing}
       </div>
 
       <div className="h-px bg-zinc-100 my-10" />
@@ -89,7 +93,7 @@ function OrderSuccessContent() {
         {/* Delivery Info */}
         <div className="space-y-6">
           <h3 className="text-sm font-black uppercase tracking-widest text-zinc-400">
-            Thông tin giao hàng
+            {dict.orderSuccess.deliveryInfo}
           </h3>
           <div className="bg-zinc-50 p-6 rounded-3xl border border-zinc-100 space-y-4">
             <div className="flex items-start gap-4">
@@ -108,8 +112,8 @@ function OrderSuccessContent() {
 
             <div className="pt-4 border-t border-zinc-200/60 flex items-center gap-3 text-sm">
               <Clock size={16} className="text-zinc-400" />
-              <span className="text-zinc-500 font-bold">Dự kiến giao: </span>
-              <span className="text-zinc-900 font-black">20-30 phút</span>
+              <span className="text-zinc-500 font-bold">{dict.orderSuccess.deliveryEstimate.split(': ')[0]}: </span>
+              <span className="text-zinc-900 font-black">20-30 {dict.shop.preparationTime}</span>
             </div>
           </div>
         </div>
@@ -117,25 +121,27 @@ function OrderSuccessContent() {
         {/* Pricing Summary */}
         <div className="space-y-6">
           <h3 className="text-sm font-black uppercase tracking-widest text-zinc-400">
-            Chi tiết thanh toán
+            {dict.orderSuccess.paymentDetails}
           </h3>
           <div className="bg-zinc-50 p-6 rounded-3xl border border-zinc-100 space-y-4">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-zinc-500 font-bold">Phương thức</span>
+              <span className="text-zinc-500 font-bold">{dict.orderSuccess.method}</span>
               <span className="text-zinc-900 font-black uppercase">
-                {order.paymentMethod?.name}
+                {order.paymentMethod?.id === 'cod' ? dict.checkout.cod : 
+                 order.paymentMethod?.id === 'internet_banking' ? dict.checkout.banking :
+                 dict.checkout.card}
               </span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-zinc-500 font-bold">Trạng thái</span>
+              <span className="text-zinc-500 font-bold">{dict.orderSuccess.paymentStatus}</span>
               <span className="text-blue-600 font-black uppercase">
-                {order.paymentStatus?.name}
+                {order.paymentStatus?.name || 'DONE'}
               </span>
             </div>
             <div className="flex justify-between items-center pt-2 border-t border-zinc-200">
-              <span className="text-zinc-900 font-black text-lg">Tổng cộng</span>
+              <span className="text-zinc-900 font-black text-lg">{dict.orderSuccess.total}</span>
               <span className="text-2xl font-black text-red-600">
-                {new Intl.NumberFormat('vi-VN').format(Number(order.totalPrice) || 0)}đ
+                {formatPrice(order.totalPrice || 0, locale)}
               </span>
             </div>
           </div>
@@ -145,7 +151,7 @@ function OrderSuccessContent() {
       {/* Items List */}
       <div className="text-left mb-12">
         <h3 className="text-sm font-black uppercase tracking-widest text-zinc-400 mb-6">
-          Danh sách món ăn ({order.orderItems?.length})
+          {dict.orderSuccess.itemList.replace('{count}', (order.orderItems?.length || 0).toString())}
         </h3>
         <div className="space-y-4">
           {order.orderItems?.map((item: any) => (
@@ -153,21 +159,25 @@ function OrderSuccessContent() {
               key={item.id}
               className="flex items-center gap-4 p-4 rounded-2xl border border-zinc-100 bg-white"
             >
-              <div className="h-16 w-16 rounded-xl bg-zinc-50 flex items-center justify-center shrink-0">
-                <Package size={24} className="text-zinc-300" />
+              <div className="h-16 w-16 rounded-xl bg-zinc-50 flex items-center justify-center shrink-0 overflow-hidden">
+                {item.imageUrl ? (
+                  <img src={`${process.env.NEXT_PUBLIC_API_URL}${item.imageUrl}`} alt={item.name} className="h-full w-full object-cover" />
+                ) : (
+                  <Package size={24} className="text-zinc-300" />
+                )}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="font-black text-zinc-900 truncate">{item.name}</div>
                 <div className="text-xs text-zinc-500 font-bold">
-                  Loại: {item.variant} | SL: {item.quantity}
+                  {dict.orderSuccess.variant}: {(dict.shop.variants as any)?.sizes?.[item.variant] || item.variant} | {dict.orderSuccess.quantity}: {item.quantity}
                 </div>
               </div>
               <div className="text-right">
                 <div className="font-black text-zinc-900">
-                  {new Intl.NumberFormat('vi-VN').format(Number(item.price) * item.quantity)}đ
+                  {formatPrice(Number(item.price) * item.quantity, locale)}
                 </div>
                 <div className="text-[10px] text-zinc-400 font-bold">
-                  {new Intl.NumberFormat('vi-VN').format(Number(item.price))}đ / món
+                  {dict.orderSuccess.pricePerItem.replace('{price}', formatPrice(item.price, locale))}
                 </div>
               </div>
             </div>
@@ -181,14 +191,14 @@ function OrderSuccessContent() {
           onClick={() => router.push(`/${locale}/app/shop`)}
           className="flex-1 py-4 rounded-2xl bg-zinc-900 hover:bg-zinc-800 text-white font-black text-lg shadow-xl shadow-zinc-200 transition-all active:scale-95"
         >
-          Tiếp tục mua sắm
+          {dict.orderSuccess.continueShopping}
         </Button>
         <Button
           variant="secondary"
           onClick={() => router.push(`/${locale}/app/order/history`)}
           className="flex-1 py-4 rounded-2xl bg-white border-2 border-zinc-100 text-zinc-600 font-black text-lg hover:bg-zinc-50 transition-all active:scale-95"
         >
-          Xem lịch sử đơn hàng
+          {dict.orderSuccess.orderHistory}
           <ArrowRight size={20} className="ml-2" />
         </Button>
       </div>
@@ -197,6 +207,9 @@ function OrderSuccessContent() {
 }
 
 export default function OrderSuccessPage() {
+  const dict = useDictionary();
+  const params = useParams();
+  const locale = params.locale as string;
   return (
     <div className="min-h-screen bg-zinc-50 flex flex-col font-sans">
       <Header />
@@ -205,7 +218,7 @@ export default function OrderSuccessPage() {
           fallback={
             <div className="flex-1 flex flex-col items-center justify-center gap-4 text-zinc-400 py-40">
               <Loader2 className="animate-spin" size={48} />
-              <p className="font-bold">Đang chuẩn bị nội dung...</p>
+              <p className="font-bold">{dict.orderSuccess.preparing}</p>
             </div>
           }
         >
@@ -214,7 +227,7 @@ export default function OrderSuccessPage() {
 
         <div className="mt-12 text-center text-zinc-400 text-sm font-medium flex items-center justify-center gap-2">
           <ShoppingBag size={16} />
-          Quý khách sẽ nhận được email xác nhận đơn hàng sớm nhất.
+          {dict.orderSuccess.emailConfirmation}
         </div>
       </main>
     </div>

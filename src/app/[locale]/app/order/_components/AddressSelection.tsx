@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { MapPin, Settings, Loader2 } from 'lucide-react';
+import { useDictionary } from '@/contexts/DictionaryContext';
 
 interface Address {
   id: number;
@@ -28,6 +29,7 @@ export default function AddressSelection({
   selectedId: number | null; 
   onSelect: (id: number) => void;
 }) {
+  const dict = useDictionary();
   const { data: addresses, isLoading, isError } = useQuery({
     queryKey: ['addresses', userId],
     queryFn: () => fetchAddresses(userId),
@@ -37,7 +39,7 @@ export default function AddressSelection({
     return (
       <div className="bg-white rounded-[32px] p-8 border border-zinc-100 shadow-sm flex flex-col items-center justify-center py-20 gap-4 text-zinc-400">
         <Loader2 className="animate-spin" size={32} />
-        <p className="font-bold">Đang tải địa chỉ...</p>
+        <p className="font-bold">{dict.common.loading}</p>
       </div>
     );
   }
@@ -45,14 +47,14 @@ export default function AddressSelection({
   if (isError) {
     return (
       <div className="bg-white rounded-[32px] p-8 border border-zinc-100 shadow-sm text-red-500 font-bold text-center">
-        Không thể tải danh sách địa chỉ.
+        {dict.common.noData}
       </div>
     );
   }
 
   return (
     <div className="bg-white rounded-[32px] p-8 border border-zinc-100 shadow-sm">
-      <h2 className="text-lg font-black text-zinc-900 mb-6">Địa chỉ người nhận</h2>
+      <h2 className="text-lg font-black text-zinc-900 mb-6">{dict.checkout.selectAddress}</h2>
       
       <div className="space-y-4">
         {addresses?.map((addr: Address) => (
@@ -83,7 +85,7 @@ export default function AddressSelection({
 
         <button className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-zinc-300 rounded-2xl text-zinc-500 font-bold hover:bg-zinc-50 transition-all text-sm mt-4">
            <Settings size={18} />
-           Quản lý địa chỉ
+           {dict.common.edit}
         </button>
       </div>
     </div>

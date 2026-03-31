@@ -13,22 +13,22 @@ export default function MainFooter() {
           <div className="col-span-1 lg:col-span-1">
             <div className="text-3xl font-black italic tracking-tighter text-white">
               <span className="text-primary">@</span>
-              {dict.common.brand.toLowerCase()}
+              {(dict.common.brand || 'Quadbite').toLowerCase()}
             </div>
             <p className="mt-6 text-zinc-400">
-              {footerDict.description}
+              {footerDict?.about?.description || footerDict?.description || 'Delicious food delivery.'}
             </p>
           </div>
 
           <div>
             <h4 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">
-              {footerDict.sitemap}
+              {footerDict?.quickLinks?.title || 'Links'}
             </h4>
             <ul className="space-y-4 text-zinc-400">
-              {(footerDict.sitemapLinks as string[]).map((item) => (
-                <li key={item}>
+              {Object.keys(footerDict?.quickLinks || {}).filter(k => k !== 'title').map((key) => (
+                <li key={key}>
                   <a href="#" className="transition-colors hover:text-primary">
-                    {item}
+                    {footerDict.quickLinks[key]}
                   </a>
                 </li>
               ))}
@@ -36,9 +36,11 @@ export default function MainFooter() {
           </div>
 
           <div>
-            <h4 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">{footerDict.support}</h4>
+            <h4 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">
+              {footerDict?.support?.title || 'Support'}
+            </h4>
             <ul className="space-y-4 text-zinc-400">
-              {(footerDict.supportLinks as string[]).map((item) => (
+              {(footerDict?.supportLinks as string[] || []).map((item) => (
                 <li key={item}>
                   <a href="#" className="transition-colors hover:text-primary">
                     {item}
@@ -50,9 +52,9 @@ export default function MainFooter() {
 
           <div>
             <h4 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">
-              {footerDict.newsletter.title}
+              {footerDict?.newsletter?.title || 'Newsletter'}
             </h4>
-            <p className="mb-4 text-zinc-400">{footerDict.newsletter.description}</p>
+            <p className="mb-4 text-zinc-400">{footerDict?.newsletter?.description || 'Subscribe for updates.'}</p>
             <div className="flex overflow-hidden rounded-full bg-zinc-800">
               <input
                 type="email"
@@ -60,7 +62,7 @@ export default function MainFooter() {
                 className="w-full bg-transparent px-6 py-3 text-sm outline-none"
               />
               <button className="bg-primary px-6 py-3 font-bold transition-colors hover:bg-primary">
-                {footerDict.newsletter.button}
+                {footerDict?.newsletter?.button || 'Join'}
               </button>
             </div>
           </div>
@@ -68,7 +70,7 @@ export default function MainFooter() {
 
         <div className="mt-20 border-t border-zinc-900 pt-12 text-center text-sm text-zinc-500">
           <p>
-            &copy; {new Date().getFullYear()} {dict.common.brand}. {footerDict.copyright}
+            &copy; {new Date().getFullYear()} {dict.common.brand || 'Quadbite'}. {footerDict?.copyright || 'All rights reserved.'}
           </p>
         </div>
       </div>

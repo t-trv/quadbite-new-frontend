@@ -7,6 +7,7 @@ import Header from '@/components/header/Header';
 import CategoryTabs from './_components/CategoryTabs';
 import FoodCard from './_components/FoodCard';
 import OrderSidebar from './_components/OrderSidebar';
+import { useDictionary } from '@/contexts/DictionaryContext';
 import { Loader2 } from 'lucide-react';
 
 const fetchFoods = async (mainCategoryId: string) => {
@@ -17,6 +18,7 @@ const fetchFoods = async (mainCategoryId: string) => {
 };
 
 function ShopContent() {
+  const dict = useDictionary();
   const searchParams = useSearchParams();
   const [activeMainCategory, setActiveMainCategory] = useState('main-food');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -65,8 +67,8 @@ function ShopContent() {
           {/* Menu Section */}
           <div className="flex-1">
             <div className="mb-10">
-              <h1 className="text-4xl font-black text-zinc-900 mb-2">Menu món ăn</h1>
-              <p className="text-zinc-500">Khám phá hương vị tuyệt vời của QuadBite</p>
+              <h1 className="text-4xl font-black text-zinc-900 mb-2">{dict.shop.title}</h1>
+              <p className="text-zinc-500">{dict.shop.subtitle}</p>
             </div>
 
             <CategoryTabs
@@ -78,16 +80,16 @@ function ShopContent() {
             {isLoading ? (
               <div className="flex flex-col items-center justify-center py-40 gap-4 text-zinc-400">
                 <Loader2 className="animate-spin" size={48} />
-                <p className="font-medium">Đang tải danh sách món ăn...</p>
+                <p className="font-medium">{dict.common.loading}</p>
               </div>
             ) : isError ? (
               <div className="flex flex-col items-center justify-center py-40 gap-4 text-red-500">
-                <p className="font-bold">Đã có lỗi xảy ra khi tải dữ liệu!</p>
+                <p className="font-bold">{dict.common.errorTitle}</p>
                 <button
                   onClick={() => window.location.reload()}
                   className="px-6 py-2 bg-red-600 text-white rounded-full font-bold"
                 >
-                  Thử lại
+                  {dict.common.submit}
                 </button>
               </div>
             ) : (
@@ -112,11 +114,12 @@ function ShopContent() {
 import { Suspense } from 'react';
 
 export default function ShopPage() {
+  const dict = useDictionary();
   return (
     <Suspense fallback={
        <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center gap-4 text-zinc-400">
          <Loader2 className="animate-spin" size={48} />
-         <p className="font-bold">Đang tải...</p>
+         <p className="font-bold">{dict.common.loading}</p>
        </div>
     }>
       <ShopContent />

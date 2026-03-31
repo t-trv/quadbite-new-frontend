@@ -6,6 +6,9 @@ import api from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { CartItem } from '@/stores/cart';
 import { useState, useEffect } from 'react';
+import { useDictionary } from '@/contexts/DictionaryContext';
+import { useParams } from 'next/navigation';
+import { formatPrice } from '@/utils/currency';
 
 interface OrderSummaryProps {
   items: CartItem[];
@@ -39,7 +42,7 @@ const fetchOrderPreview = async (
         price_adjust: Number(item.variant.price_adjust)
       } : {
         id: "small",
-        name: "Nhỏ",
+        name: "Small",
         price_adjust: 0
       }
     })),
@@ -56,6 +59,9 @@ export default function OrderSummary({
   onCouponChange,
   onCheckout
 }: OrderSummaryProps) {
+  const dict = useDictionary();
+  const params = useParams();
+  const locale = params.locale as string;
   
   const [localCouponCode, setLocalCouponCode] = useState(couponCode);
   const [debouncedCoupon, setDebouncedCoupon] = useState(couponCode);
@@ -80,14 +86,14 @@ export default function OrderSummary({
 
   return (
     <div className="bg-white rounded-[32px] p-8 border border-zinc-100 shadow-sm sticky top-24 font-sans">
-      <h2 className="text-lg font-black text-zinc-900 mb-6">Số tiền cần thanh toán</h2>
+      <h2 className="text-lg font-black text-zinc-900 mb-6">{dict.checkout.orderSummary}</h2>
       
       <div className="flex gap-2 mb-8">
         <div className="relative flex-1">
           <Tag className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
           <input 
             type="text" 
-            placeholder="Nhập mã giảm giá"
+            placeholder={dict.checkout.couponCode}
             className="w-full pl-12 pr-4 py-3 rounded-2xl bg-zinc-50 border border-zinc-100 focus:border-zinc-900 focus:outline-none transition-all font-bold"
             value={localCouponCode}
             onChange={(e) => setLocalCouponCode(e.target.value)}
@@ -97,47 +103,47 @@ export default function OrderSummary({
           className="bg-zinc-900 text-white px-6 py-3 rounded-2xl font-black text-sm hover:bg-zinc-800 transition-all"
           disabled={isLoading}
         >
-          {isLoading ? <Loader2 className="animate-spin" size={18} /> : 'Áp dụng'}
+          {isLoading ? <Loader2 className="animate-spin" size={18} /> : dict.checkout.apply}
         </button>
       </div>
 
       <div className="space-y-4 pb-6 border-b border-zinc-100">
         <div className="flex justify-between text-zinc-500 font-bold">
-          <span>Tạm tính</span>
+          <span>{dict.checkout.subtotal}</span>
           <span className="text-zinc-900 font-black">
-            {new Intl.NumberFormat('vi-VN').format(preview?.totalItemsPrice || 0)}đ
+            {formatPrice(preview?.totalItemsPrice || 0, locale)}
           </span>
         </div>
         <div className="flex justify-between text-zinc-500 font-bold">
-          <span>Giảm giá</span>
+          <span>{dict.checkout.discount}</span>
           <span className="text-red-600 font-black">
-            -{new Intl.NumberFormat('vi-VN').format(preview?.totalDiscount || 0)}đ
+            -{formatPrice(preview?.totalDiscount || 0, locale)}
           </span>
         </div>
         <div className="flex justify-between text-zinc-500 font-bold">
-          <span>Phí vận chuyển</span>
-          <span className="text-zinc-900 font-black">0đ</span>
+          <span>{dict.checkout.shipping}</span>
+          <span className="text-zinc-900 font-black">Free</span>
         </div>
       </div>
 
       <div className="py-6 flex justify-between items-center mb-6">
-        <span className="text-xl font-black text-zinc-900 tracking-tight">Tổng tiền</span>
+        <span className="text-xl font-black text-zinc-900 tracking-tight">{dict.checkout.total}</span>
         <span className="text-3xl font-black text-zinc-900">
-          {new Intl.NumberFormat('vi-VN').format(preview?.totalPrice || 0)}đ
+          {formatPrice(preview?.totalPrice || 0, locale)}
         </span>
       </div>
 
-      {isLoading && <p className="text-xs text-zinc-400 text-center mb-4 italic">Đang tính toán lại số tiền...</p>}
+      {isLoading && <p className="text-xs text-zinc-400 text-center mb-4 italic">{dict.common.loading}</p>}
 
       <Button 
         onClick={onCheckout}
         disabled={isLoading || isError || !addressId}
         className="w-full py-5 rounded-2xl bg-zinc-900 hover:bg-zinc-800 text-white font-black text-lg transition-all active:scale-95 shadow-xl shadow-zinc-200"
       >
-        Thanh toán ngay
+        {dict.checkout.placeOrder}
       </Button>
       
-      {!addressId && <p className="text-xs text-red-500 text-center mt-4">Vui lòng chọn địa chỉ giao hàng</p>}
+      {!addressId && <p className="text-xs text-red-500 text-center mt-4">{dict.checkout.errors.selectAddress}</p>}
     </div>
   );
 }

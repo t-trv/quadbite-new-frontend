@@ -14,7 +14,7 @@ type SliderType = {
 
 export default function MainHeroSlider() {
   const dict = useDictionary();
-  const sliders = dict.sliders as SliderType[];
+  const sliders = (dict as any).sliders || [];
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export default function MainHeroSlider() {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="text-6xl font-black leading-none text-white md:text-8xl"
               >
-                Best food in <br />
-                <span className="text-primary italic">your city</span>
+                {sliders[current]?.title || dict.hero.title} <br />
+                <span className="text-primary italic">{sliders[current]?.subtitle || (dict as any).home?.heroTitle2 || ''}</span>
               </motion.h1>
               <motion.p
                 initial={{ y: 20, opacity: 0 }}
@@ -53,7 +53,7 @@ export default function MainHeroSlider() {
                 transition={{ delay: 0.4 }}
                 className="max-w-md text-lg text-zinc-400"
               >
-                {sliders[current].description}
+                {sliders[current]?.description || dict.hero.description}
               </motion.p>
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
@@ -62,10 +62,10 @@ export default function MainHeroSlider() {
                 className="flex flex-col gap-4 sm:flex-row sm:justify-center md:justify-start"
               >
                 <button className="rounded-full bg-primary px-10 py-4 text-lg font-bold text-white shadow-xl transition-all hover:scale-105 hover:bg-primary/90 active:scale-95">
-                  Order Online
+                  {sliders[current]?.buttonText || (dict as any).home?.orderOnline || 'Order Now'}
                 </button>
                 <button className="rounded-full border-2 border-zinc-700 bg-transparent px-10 py-4 text-lg font-bold text-white transition-all hover:bg-zinc-800 active:scale-95">
-                  Book a Table
+                  {(dict as any).home?.bookTable || 'Book Table'}
                 </button>
               </motion.div>
             </div>
@@ -93,7 +93,7 @@ export default function MainHeroSlider() {
                   transition={{ duration: 1, type: 'spring' }}
                 >
                   <img
-                    src={sliders[current].imageUrl}
+                    src={sliders[current]?.imageUrl?.startsWith('http') ? sliders[current].imageUrl : (sliders[current]?.imageUrl ? `${process.env.NEXT_PUBLIC_API_URL}${sliders[current].imageUrl}` : 'https://i.pinimg.com/736x/8a/8a/34/8a8a3493649669528d2983794101e4d8.jpg')}
                     alt="Delicious Dish"
                     className="h-auto w-full max-w-lg drop-shadow-[0_25px_50px_rgba(227,0,27,0.3)]"
                   />
@@ -109,7 +109,7 @@ export default function MainHeroSlider() {
 
       {/* Navigation dots */}
       <div className="absolute bottom-8 right-12 z-30 flex gap-2">
-        {sliders.map((_, idx) => (
+        {sliders.map((_: any, idx: number) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}

@@ -28,9 +28,9 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: Locale | 'favicon.ico' }>;
+  params: Promise<{ locale: string }>;
 }>) {
-  const { locale } = await params;
+  const { locale } = (await params) as { locale: Locale | 'favicon.ico' };
 
   let dict;
 

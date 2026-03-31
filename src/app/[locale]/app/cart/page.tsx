@@ -79,7 +79,7 @@ export default function CartPage() {
                       )}
                     </h3>
                     <div className="text-lg font-black text-red-600 mt-1">
-                        {formatPrice(item.price, locale)}
+                        {formatPrice(item.price + (item.variant?.price_adjust || 0), locale)}
                     </div>
                   </div>
 
@@ -102,7 +102,7 @@ export default function CartPage() {
                   <div className="text-right hidden sm:block min-w-[120px]">
                     <div className="text-sm text-zinc-400 font-medium">{dict.cart.totalPriceItem}</div>
                     <div className="text-xl font-black text-zinc-900">
-                        {formatPrice(item.price * item.quantity, locale)}
+                        {formatPrice((item.price + (item.variant?.price_adjust || 0)) * item.quantity, locale)}
                     </div>
                   </div>
                 </div>

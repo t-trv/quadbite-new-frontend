@@ -53,7 +53,10 @@ export const useCartStore = create<CartStore>()(
                 price: Number(product.price),
                 image_url: product.image_url,
                 quantity: 1,
-                variant: variant,
+                variant: variant ? {
+                  ...variant,
+                  price_adjust: Number(variant.price_adjust)
+                } : undefined,
                 preparation_time: product.preparation_time,
                 short_description: product.short_description
               },
@@ -80,7 +83,11 @@ export const useCartStore = create<CartStore>()(
       clearCart: () => set({ items: [] }),
       totalPrice: () => {
         return get().items.reduce(
-          (total, item) => total + (item.price + (item.variant?.price_adjust || 0)) * item.quantity,
+          (total, item) => {
+            const itemBasePrice = Number(item.price);
+            const variantPriceAdjust = Number(item.variant?.price_adjust || 0);
+            return total + (itemBasePrice + variantPriceAdjust) * item.quantity;
+          },
           0
         );
       },
